@@ -25,12 +25,22 @@ import org.apache.log4j.Logger;
  */
 public final class LT {
     private LT () {}
+    /**
+     * Log error with complete stack trace.
+     * @param log <code>Logger</code>
+     * @param e <code>Throwable</code>
+     */
     public static void logError(final Logger log, final Throwable e) {
         log.error(e);
         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
         e.printStackTrace(new PrintStream(baos));
         log.error(baos.toString(), e);
     }
+    /**
+     * Return a stack trace as a string.
+     * @param t <code>Throwable</code>
+     * @return <code>String</code>
+     */
     public static String getStackTrace(Throwable t) {
         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
         t.printStackTrace(new PrintStream(baos));

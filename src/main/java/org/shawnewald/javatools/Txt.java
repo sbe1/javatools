@@ -278,6 +278,12 @@ public final class Txt {
         }
         return count;
     }
+    /**
+     * Generate a random string
+     * @param length <code>int</code> length of returned string.
+     * @param chars <code>Txt.Chars</code> character set source.
+     * @return <code>String</code>
+     */
     public static String randomString (final int length, final Txt.Chars chars) {
         final String characters = (chars == Txt.Chars.STANDARD) ? standardCharacters
                                   : (chars == Txt.Chars.EXTENDED) ? extendedCharacters

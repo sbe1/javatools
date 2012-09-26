@@ -211,10 +211,21 @@ public final class CookieTools {
         cookie.setValue(empty);
         return cookie;
     }
+    /**
+     * Tests if a cookie by the given name exists
+     * @param cookies <code>Cookie[]</code>
+     * @param cookieName <code>String</code> the name of the cookie.
+     * @return <code>boolean</code>
+     */
     public static boolean cookieExists (final Cookie[] cookies,
             final String cookieName) {
         return (cookieFindByName(cookies, cookieName) != null);
     }
+    /**
+     * Tests if a <code>Cookie</code> is <code>null</code> or if it's value is empty.
+     * @param cookie
+     * @return <code>boolean</code>
+     */
     public static boolean cookieIsNullOrEmpty (final Cookie cookie) {
         return (cookie == null || cookie.getValue().isEmpty());
     }

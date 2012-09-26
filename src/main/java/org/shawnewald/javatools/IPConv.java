@@ -39,7 +39,7 @@ public final class IPConv {
     }
 
     /**
-     *
+     * Convert an IP4 address to a string from an int representation.
      * @param i <code>int</code>, representation of an IP4 address.
      * @return <code>String</code> converted representation of an IP4 address.
      */
