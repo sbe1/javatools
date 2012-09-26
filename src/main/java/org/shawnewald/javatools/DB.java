@@ -624,7 +624,6 @@ public final class DB {
     private static final String litTypeDate = "Date";
     private static final String litTypeTime = "Time";
     private static final String litTypeTimestamp = "Timestamp";
-    private static final String litJSONNull = "JSONNull";
     private static final String litStringNull = "null";
     private static final String litTypeObject = "Object";
     private static final String typeErrorStart = "Argument type not found: This statement "
@@ -680,9 +679,6 @@ public final class DB {
             }
             else if (type.endsWith(litTypeTimestamp)) {
                 stmt.setTimestamp(i, (Timestamp) item);
-            }
-            else if (type.endsWith(litJSONNull)) {
-                stmt.setNull(i, java.sql.Types.NULL);
             }
             else if (type.endsWith(litTypeObject)) {
                 stmt.setObject(i, item);
