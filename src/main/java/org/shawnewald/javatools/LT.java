@@ -5,7 +5,7 @@ import java.io.PrintStream;
 import org.apache.log4j.Logger;
 
 /**
- * Logging Tools
+ * Log4J Logging Tools
  * @author  Shawn Ewald <shawn.ewald@gmail.com>
   * Copyright (C) 2009,2010,2011,2012 Shawn Ewald
  *

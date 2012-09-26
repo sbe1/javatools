@@ -9,7 +9,7 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 import org.apache.log4j.Logger;
 /**
- * Database class.
+ * JDBC/JDNI Database class
  *
  * This is a specialized (and possibly somewhat idiosyncratic) database class
  * for connecting to JNDI datasources.

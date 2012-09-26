@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Object utility methods. (originally from package us.lnkn.util.ObjectTools)
+ * Object utility methods
  * @author  Shawn Ewald <shawn.ewald@gmail.com>
   * Copyright (C) 2009,2010,2011,2012 Shawn Ewald
  *
