@@ -32,10 +32,10 @@ import java.util.Set;
 public final class Txt {
     private static final String empty = "";
     private static final String textEncoding = "UTF-8";
-    private static String numbersCharacters = "0123456789";
-    private static String capsCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-    private static String standardCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz";
-    private static String extendedCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz~!@#$%^&*()_+=-{}][;:/?><,.";
+    private static final String numbersCharacters = "0123456789";
+    private static final String capsCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    private static final String standardCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz";
+    private static final String extendedCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz~!@#$%^&*()_+=-{}][;:/?><,.";
     public static enum Chars {STANDARD,EXTENDED,CAPS,NUMBERS};
     
     private Txt () {}
@@ -285,9 +285,7 @@ public final class Txt {
      * @return <code>String</code>
      */
     public static String randomString (final int length, final Txt.Chars chars) {
-        final String characters = (chars == Txt.Chars.STANDARD) ? standardCharacters
-                                  : (chars == Txt.Chars.EXTENDED) ? extendedCharacters
-                                    : (chars == Txt.Chars.CAPS) ? capsCharacters : numbersCharacters;
+        final String characters = getCharacters(chars);
         final StringBuffer sb = new StringBuffer(length);
         if (length > 0) {
             final int clen = characters.length() - 1;
@@ -297,5 +295,19 @@ public final class Txt {
             }
         }
         return sb.toString();
+    }
+    private static String getCharacters (final Txt.Chars chars) {
+        switch (chars) {
+            case STANDARD: 
+                return standardCharacters;
+            case EXTENDED:
+                return extendedCharacters;
+            case CAPS:
+                return capsCharacters;
+            case NUMBERS:
+                return numbersCharacters;
+            default:
+                return standardCharacters;
+        }
     }
 }
