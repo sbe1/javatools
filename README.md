@@ -2,6 +2,7 @@ javatools
 =========
 
 Miscellaneous Convenience Classes for Java
+(Some may seem simple, but they have all helped me be very productive with many Java projects.)
 
 Class Descriptions:
 
