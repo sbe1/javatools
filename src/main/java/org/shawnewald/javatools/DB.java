@@ -618,6 +618,7 @@ public final class DB {
     private static final String litTypeBigDecimal = "java.math.BigDecimal";
     private static final String litTypeBoolean = "java.lang.Boolean";
     private static final String litTypeDate = "java.util.Date";
+    private static final String litTypeSQLDate = "java.sql.Date";
     private static final String litTypeTime = "java.sql.Time";
     private static final String litTypeTimestamp = "java.sql.Timestamp";
     private static final String litStringNull = "null";
@@ -670,7 +671,7 @@ public final class DB {
             else if (type.equals(litTypeBoolean)) {
                 stmt.setBoolean(i, (Boolean) item);
             }
-            else if (type.equals(litTypeDate)) {
+            else if (type.equals(litTypeDate) || type.equals(litTypeSQLDate)) {
                 stmt.setDate(i, (Date) item);
             }
             else if (type.equals(litTypeTime)) {
