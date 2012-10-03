@@ -623,6 +623,7 @@ public final class DB {
     private static final String litTypeTimestamp = "java.sql.Timestamp";
     private static final String litStringNull = "null";
     private static final String litTypeObject = "java.lang.Object";
+    private static final String litPreparedStatement = "prepared stmt: ";
     private static final String typeErrorStart = "Argument type not found: This statement "
                         + "will fail because not all statment arguments have been set. "
                         + "This database class only supports the most commonly used types. "
@@ -689,7 +690,7 @@ public final class DB {
         }
         catch (final SQLException e) {
             LOG.error(e);
-            LOG.error("prepared stmt: " + stmt);
+            LOG.error(litPreparedStatement + stmt);
             LOG.error(LT.getStackTrace(e));
         }
     }
