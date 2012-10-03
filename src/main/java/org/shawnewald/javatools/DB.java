@@ -666,7 +666,7 @@ public final class DB {
                 stmt.setLong(i, (Long) item);
             }
             else if (type.equals(litTypeBigDecimal)) {
-                stmt.setDouble(i, (Double) item);
+                stmt.setBigDecimal(i, (java.math.BigDecimal) item);
             }
             else if (type.equals(litTypeBoolean)) {
                 stmt.setBoolean(i, (Boolean) item);
