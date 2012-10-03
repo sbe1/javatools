@@ -609,23 +609,19 @@ public final class DB {
         }
     }
 
-    private static final String litTypeString = "String";
-    private static final String litTypeInt = "int";
-    private static final String litTypeInteger = "Integer";
-    private static final String litTypelong = "long";
-    private static final String litTypeLong = "Long";
-    private static final String litTypedouble = "double";
-    private static final String litTypeDouble = "Double";
-    private static final String litTypefloat = "float";
-    private static final String litTypeFloat = "Float";
-    private static final String litTypeBigInt = "BigInteger";
-    private static final String litTypeboolean = "boolean";
-    private static final String litTypeBoolean = "Boolean";
-    private static final String litTypeDate = "Date";
-    private static final String litTypeTime = "Time";
-    private static final String litTypeTimestamp = "Timestamp";
+    private static final String litTypeString = "java.lang.String";
+    private static final String litTypeInteger = "java.lang.Integer";
+    private static final String litTypeLong = "java.lang.Long";
+    private static final String litTypeDouble = "java.lang.Double";
+    private static final String litTypeFloat = "java.lang.Float";
+    private static final String litTypeBigInt = "java.math.BigInteger";
+    private static final String litTypeBigDecimal = "java.math.BigDecimal";
+    private static final String litTypeBoolean = "java.lang.Boolean";
+    private static final String litTypeDate = "java.util.Date";
+    private static final String litTypeTime = "java.sql.Time";
+    private static final String litTypeTimestamp = "java.sql.Timestamp";
     private static final String litStringNull = "null";
-    private static final String litTypeObject = "Object";
+    private static final String litTypeObject = "java.lang.Object";
     private static final String typeErrorStart = "Argument type not found: This statement "
                         + "will fail because not all statment arguments have been set. "
                         + "This database class only supports the most commonly used types. "
@@ -653,34 +649,37 @@ public final class DB {
                 }
                 else { stmt.setString(i, (String) item); }
             }
-            else if (type.endsWith(litTypeInt) || type.endsWith(litTypeInteger)) {
+            else if (type.equals(litTypeInteger)) {
                 stmt.setInt(i, (Integer) item);
             }
-            else if (type.endsWith(litTypelong) || type.endsWith(litTypeLong)) {
+            else if (type.equals(litTypeLong)) {
                 stmt.setLong(i, (Long) item);
             }
-            else if (type.endsWith(litTypedouble) || type.endsWith(litTypeDouble)) {
+            else if (type.equals(litTypeDouble)) {
                 stmt.setDouble(i, (Double) item);
             }
-            else if (type.endsWith(litTypefloat) || type.endsWith(litTypeFloat)) {
+            else if (type.equals(litTypeFloat)) {
                 stmt.setFloat(i, (Float) item);
             }
-            else if (type.endsWith(litTypeBigInt)) {
+            else if (type.equals(litTypeBigInt)) {
                 stmt.setLong(i, (Long) item);
             }
-            else if (type.endsWith(litTypeboolean) || type.endsWith(litTypeBoolean)) {
+            else if (type.equals(litTypeBigDecimal)) {
+                stmt.setDouble(i, (Double) item);
+            }
+            else if (type.equals(litTypeBoolean)) {
                 stmt.setBoolean(i, (Boolean) item);
             }
-            else if (type.endsWith(litTypeDate)) {
+            else if (type.equals(litTypeDate)) {
                 stmt.setDate(i, (Date) item);
             }
-            else if (type.endsWith(litTypeTime)) {
+            else if (type.equals(litTypeTime)) {
                 stmt.setTime(i, (Time) item);
             }
-            else if (type.endsWith(litTypeTimestamp)) {
+            else if (type.equals(litTypeTimestamp)) {
                 stmt.setTimestamp(i, (Timestamp) item);
             }
-            else if (type.endsWith(litTypeObject)) {
+            else if (type.equals(litTypeObject)) {
                 stmt.setObject(i, item);
             }
             else {
