@@ -122,4 +122,28 @@ public final class OT {
     public static boolean longIsNullOrEmpty (final Long[] input) {
         return (input == null || input.length == 0);
     }
+     /**
+     * Checks if a Number has a null value or is equal to zero.
+     * @param input <code>Number</code> the Number number to be tested.
+     * @return <code>boolean</code>
+     */
+    public static boolean numberIsNullOrZero (final Number input) {
+        return (input == null || input.shortValue() == 0);
+    }
+     /**
+     * Checks if a Long has a null value or is less than or equal to zero.
+     * @param input <code>Long</code> the Long number to be tested.
+     * @return <code>boolean</code>
+     */
+    public static boolean numberIsNullOrLTETZero (final Number input) {
+        return (input == null || input.shortValue() <= 0);
+    }
+    /**
+     * Checks if a <code>Number[]</code> array is null or empty.
+     * @param input <code>Number[]</code> the Number array to be tested.
+     * @return <code>boolean</code>
+     */
+    public static boolean numberIsNullOrEmpty (final Number[] input) {
+        return (input == null || input.length == 0);
+    }
 }

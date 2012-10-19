@@ -2,7 +2,6 @@ package org.shawnewald.javatools;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import org.apache.log4j.Logger;
 
 /**
  * Log4J Logging Tools
@@ -27,14 +26,21 @@ public final class LT {
     private LT () {}
     /**
      * Log error with complete stack trace.
-     * @param log <code>Logger</code>
+     * @param log <code>org.apache.log4j.Logger</code>
      * @param e <code>Throwable</code>
      */
-    public static void logError(final Logger log, final Throwable e) {
+    public static void logError(final org.apache.log4j.Logger log, final Throwable e) {
         log.error(e);
-        final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        e.printStackTrace(new PrintStream(baos));
-        log.error(baos.toString(), e);
+        log.error(getStackTrace(e), e);
+    }
+    /**
+     * Log error with complete stack trace.
+     * @param log <code>java.util.logging.Logger</code>
+     * @param e <code>Throwable</code>
+     */
+    public static void logError(final java.util.logging.Logger log, final Throwable e) {
+        log.severe(e.getMessage());
+        log.severe(getStackTrace(e));
     }
     /**
      * Return a stack trace as a string.
