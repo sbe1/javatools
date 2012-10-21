@@ -10,7 +10,6 @@ import java.util.Set;
 
 /**
  * Text manipulation and conversion methods.
- * @version 1.0
  * @author  Shawn Ewald <shawn.ewald@gmail.com>
   * Copyright (C) 2009,2010,2011,2012 Shawn Ewald
  *

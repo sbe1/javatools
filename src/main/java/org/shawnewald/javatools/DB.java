@@ -26,7 +26,6 @@ import org.apache.log4j.Logger;
  * Prepared queries are supported, but not named parameters. Batch queries,
  * including prepared batch queries are also supported.
  *
- * @version 1.0
  * @author  Shawn Ewald <shawn.ewald@gmail.com>
   * Copyright (C) 2009,2010,2011,2012 Shawn Ewald
  *

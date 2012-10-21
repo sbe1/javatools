@@ -6,7 +6,6 @@ import javax.servlet.http.Cookie;
 
 /**
  * Cookie Tools - HTTP Cookie manipulation methods.
- * @version 1.0
  * @author  Shawn Ewald <shawn.ewald@gmail.com>
   * Copyright (C) 2009,2010,2011,2012 Shawn Ewald
  *
