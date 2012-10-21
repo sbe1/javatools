@@ -286,6 +286,79 @@ public final class DB {
         return result;
     }
     /**
+     * Executes a  query and returns the first row from the result.
+     * @param query  a <code>String</code> containing a prepared SQL query.
+     * @return result  <code>Map</code>
+     */
+    public Map<String,Object> getRow (final String query) {
+        final Connection con = setConnection();
+        Statement stmt = null;
+        ResultSet rs = null;
+        final Map<String,Object> result = new HashMap<String,Object>();
+        try {
+            stmt = con.createStatement();
+            rs = stmt.executeQuery(query);
+            if (rs != null && rs.next()) {
+                final ResultSetMetaData meta = rs.getMetaData();
+                final int numberOfColumns = meta.getColumnCount();
+                for (int c = 1; c <= numberOfColumns; ++c) {
+                    final String name = meta.getColumnName(c);
+                    final Object value = rs.getObject(c);
+                    // place into HashMap
+                    result.put(name, value);
+                }
+            }
+        }
+        catch (final SQLException ex) {
+            LOG.error(ex);
+            throw new RuntimeException(ex);
+        }
+        finally {
+            closeResultSet(rs);
+            closeStatement(stmt);
+            closeConnection(con);
+        }
+        return result;
+    }
+
+    /**
+     * Executes a prepared query and returns the first row from the result.
+     * @param query  a <code>String</code> containing a prepared SQL query.
+     * @param values  a <code>java.util.List<Object></code> of prepared values.
+     * @return result  <code>Map</code>
+     */
+    public Map<String,Object> getPreparedRow (final String query, final List<Object> values) {
+        final Connection con = setConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        final Map<String,Object> result = new HashMap<String,Object>();
+        try {
+            stmt = con.prepareStatement(query);
+            setStatementValues(stmt, values);
+            rs = stmt.executeQuery();
+            if (rs != null && rs.next()) {
+                final ResultSetMetaData meta = rs.getMetaData();
+                final int numberOfColumns = meta.getColumnCount();
+                for (int c = 1; c <= numberOfColumns; ++c) {
+                    final String name = meta.getColumnName(c);
+                    final Object value = rs.getObject(c);
+                    // place into HashMap
+                    result.put(name, value);
+                }
+            }
+        }
+        catch (final SQLException ex) {
+            LOG.error(ex);
+            throw new RuntimeException(ex);
+        }
+        finally {
+            closeResultSet(rs);
+            closePreparedStatement(stmt);
+            closeConnection(con);
+        }
+        return result;
+    }
+    /**
      * Returns all the values of one column in a query ResultSet as a <code>List</code>.
      * @param query  a <code>String</code> containing a SQL query.
      * @param column  a <code>String</code> describing the column to retrieve.
