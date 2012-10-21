@@ -24,6 +24,7 @@ import java.util.*;
  *
  */
 public final class DT {
+    public static enum DateRange {DAY7,DAY14,DAY28,DAY30,DAY60,DAY90};
     private static final SimpleDateFormat fdt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
     private static final SimpleDateFormat fd = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
     private static final SimpleDateFormat rfc822 = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z",Locale.US);
@@ -188,52 +189,54 @@ public final class DT {
         return cal.getTime();
     }
     /**
-     * Calculate a date range.
+     * Calculate a date range from <code>startDate</code> back to <code>endDate</code> or <code>DT.DateRange</code> days past.
+     * If <code>startDate</code> is null or greater than <code>endDate</code>, <code>startDate</code> defaults to the present date.
+     * If <code>timeInterval</code> is <code>null</code> and <code>endDate</code> is null, <code>endDate</code> defaults to 28 days in the past from <code>startDate</code>
+     * if <code>timeInterval</code> is not <code>null</code>, <code>endDate</code> is ignored.
      * @param startDate <code>Date</code>
      * @param endDate <code>Date</code>
      * @param timeInterval <code>String</code>
      * @return <code>Date[]</code>
      */
-    public static Date[] setDates (final Date startDate, final Date endDate, final String timeInterval) {
-        final Date[] dates = new Date[]{startDate,endDate};
+    public static Date[] setDates (final Date startDate, final Date endDate,
+            final DT.DateRange timeInterval) {
+        final Date[] dates = new Date[]{((startDate == null)
+                                         ? new Date() : startDate), endDate};
         final Calendar theDate = Calendar.getInstance();
-        if (OT.stringIsNullOrEmpty(timeInterval)) {
-            if (dates[0] != null && dates[1] == null) {
-                dates[1] = new Date();
-            }
-            else if (dates[0] == null && dates[1] != null) {
-                theDate.setTime(dates[1]);
+        if (timeInterval == null) {
+            if (endDate == null
+                    || dates[0].getTime() >= endDate.getTime()) {
+                theDate.setTime(dates[0]);
                 theDate.add(Calendar.DATE, -28);
-                dates[0] = theDate.getTime();
-            }
-            else if ((dates[0] == null && dates[1] == null)) {
-                theDate.setTime(new Date());
                 dates[1] = theDate.getTime();
-                theDate.add(Calendar.DATE, -28);
-                dates[0] = theDate.getTime();
             }
         }
         else {
             theDate.setTime(new Date());
             dates[1] = theDate.getTime();
-            if ("7-day".equals(timeInterval)) {
+            if (timeInterval == DT.DateRange.DAY7) {
                 theDate.add(Calendar.DATE, -7);
                 dates[0] = theDate.getTime();
             }
-            else if ("30-day".equals(timeInterval)) {
+            else if (timeInterval == DT.DateRange.DAY14) {
+                theDate.add(Calendar.DATE, -14);
+                dates[0] = theDate.getTime();
+            }
+            else if (timeInterval == DT.DateRange.DAY28) {
+                theDate.add(Calendar.DATE, -28);
+                dates[0] = theDate.getTime();
+            }
+            else if (timeInterval == DT.DateRange.DAY30) {
                 theDate.add(Calendar.DATE, -30);
                 dates[0] = theDate.getTime();
             }
-            else if ("60-day".equals(timeInterval)) {
+            else if (timeInterval == DT.DateRange.DAY60) {
                 theDate.add(Calendar.DATE, -60);
                 dates[0] = theDate.getTime();
             }
-            else if ("90-day".equals(timeInterval)) {
+            else if (timeInterval == DT.DateRange.DAY90) {
                 theDate.add(Calendar.DATE, -90);
                 dates[0] = theDate.getTime();
-            }
-            else if ("all".equals(timeInterval)) {
-                dates[0] = stringToDate("0001-01-01");
             }
             else {
                 theDate.add(Calendar.DATE, -28);
@@ -281,7 +284,7 @@ public final class DT {
      * @return
      */
     public synchronized static String[] setStringDates  (final Date startDate, final Date endDate,
-            final String timeInterval) {
+            final DT.DateRange timeInterval) {
         final Date[] dates = setDates(startDate,endDate,timeInterval);
         return new String[] {formatDate(dates[0]),formatDate(dates[1])};
     }
@@ -293,7 +296,7 @@ public final class DT {
      * @return
      */
     public synchronized static String[] setStringDates  (final String startDate, final String endDate,
-            final String timeInterval) {
+            final DT.DateRange timeInterval) {
         final Date[] dates = setDates(stringToDate(startDate),
                 stringToDate(endDate),timeInterval);
         return new String[] {formatDate(dates[0]),formatDate(dates[1])};
