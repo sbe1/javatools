@@ -25,10 +25,10 @@ import java.util.*;
  */
 public final class DT {
     public static enum DateRange {DAY7,DAY14,DAY28,DAY30,DAY60,DAY90};
-    private static final SimpleDateFormat fdt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
-    private static final SimpleDateFormat fd = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+    private static final SimpleDateFormat fdt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private static final SimpleDateFormat fd = new SimpleDateFormat("yyyy-MM-dd");
     private static final SimpleDateFormat rfc822 = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z",Locale.ENGLISH);
-    private static final SimpleDateFormat iso = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssz");
+    private static final SimpleDateFormat iso = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssz",Locale.ENGLISH);
     private static final SimpleDateFormat twd = new SimpleDateFormat("EEE MMM dd HH:mm:ss ZZZZZ yyyy", Locale.ENGLISH);
 
     private DT () {}
@@ -53,7 +53,7 @@ public final class DT {
         catch (final Exception e) { throw new RuntimeException(e); }
     }
     /**
-     * Format <code>Date</code> to RFC-822 (<code>yyyy-MM-dd HH:mm:ss</code>) date format.
+     * Format <code>Date</code> to RFC-822 (<code>EEE, dd MMM yyyy HH:mm:ss Z</code>) date format.
      * @param d <code>Date</date>
      * @return <code>String</code>
      */
