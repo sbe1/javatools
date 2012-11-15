@@ -41,53 +41,28 @@ public final class DT {
         return fdt.format(d);
     }
     /**
-     * Format <code>String</code> representation of a date to <code>yyyy-MM-dd HH:mm:ss</code> format.
-     * @param d <code>String</code>
-     * @return <code>String</code>
-     */
-    public synchronized static String formatDateTime (final String d) {
-        try {
-            final Date date = fdt.parse(d);
-            return fdt.format(date);
-        }
-        catch (final Exception e) { throw new RuntimeException(e); }
-    }
-    /**
      * Format <code>Date</code> to RFC-822 (<code>EEE, dd MMM yyyy HH:mm:ss Z</code>) date format.
      * @param d <code>Date</date>
      * @return <code>String</code>
      */
-    public synchronized static String formatRFC822Date (final String d) {
-        try {
-            final Date date = rfc822.parse(d);
-            return fdt.format(date);
-        }
-        catch (final Exception e) { throw new RuntimeException(e); }
+    public synchronized static String formatRFC822Date (final Date d) {
+        return rfc822.format(d);
     }
     /**
      * Format <code>Date</code> to ISO (<code>yyyy-MM-dd'T'HH:mm:ssz</code>) date format.
      * @param d <code>Date</code>
      * @return <code>String</code>
      */
-    public synchronized static String formatISODate (final String d) {
-        try {
-            final Date date = iso.parse(d);
-            return iso.format(date);
-        }
-        catch (final Exception e) { throw new RuntimeException(e); }
+    public synchronized static String formatISODate (final Date d) {
+        return iso.format(d);
     }
     /**
      * Format <code>Date</code> to Twitter API (<code>yyyy-MM-dd'T'HH:mm:ssz</code>) date format.
      * @param d <code>Date</code>
      * @return <code>String</code>
      */
-    public synchronized static String formatTwitterDate (final String d) {
-        try {
-            twd.setLenient(true);
-            final Date date = twd.parse(d);
-            return fdt.format(date);
-        }
-        catch (final Exception e) { throw new RuntimeException(e); }
+    public synchronized static String formatTwitterDate (final Date d) {
+        return fdt.format(d);
     }
     /**
      * Format <code>Date</code> to <code>yyyy-MM-dd</code> date format.
@@ -96,18 +71,6 @@ public final class DT {
      */
     public synchronized static String formatDate (final Date d) {
         return fd.format(d);
-    }
-    /**
-     * Format <code>String</code> representation of a date to <code>yyyy-MM-dd</code> format.
-     * @param d <code>Date</code>
-     * @return <code>String</code>
-     */
-    public synchronized static String formatDate (final String d) {
-        try {
-            final Date date = fd.parse(d);
-            return fd.format(date);
-        }
-        catch (final Exception e) { throw new RuntimeException(e); }
     }
     /**
      * Convert <code>String</code> representation of a date to a <code>Date</code>.
