@@ -1,5 +1,6 @@
 package org.shawnewald.javatools;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -285,6 +286,52 @@ public final class DT {
             }
         }
         dates.add(end);
+        return dates;
+    }
+    /**
+     * Get a <code>Set</code> of timestamps.
+     * @param start <code>Date</code>
+     * @param days <code>int</code>
+     * @return <code>Set</code>
+     */
+    public static Set<Long> getTimestampRangeArray (final Date start, final int days) {
+        final Set<Long> dates = new HashSet<Long>();
+        long current = start.getTime();
+        final Calendar cal = Calendar.getInstance();
+        cal.setTimeInMillis(current);
+        for (int i=0;i<days;i++) {
+            //dates.add((current / 1000));
+            dates.add(current);
+            cal.add(Calendar.DATE, 1);
+            current = cal.getTimeInMillis();
+        }
+        dates.add(current);
+        cal.add(Calendar.DATE, 1);
+        current = cal.getTimeInMillis();
+        dates.add(current);
+        return dates;
+    }
+    /**
+     * Get a <code>Set</code> of timestamps.
+     * @param start <code>String</code>
+     * @param days <code>int</code>
+     * @return <code>Set</code>
+     */
+    public static Set<Long> getTimestampRangeArray (final String start, final int days)
+            throws ParseException {
+        final Set<Long> dates = new HashSet<Long>();
+        long current = fd.parse(start).getTime();
+        final Calendar cal = Calendar.getInstance();
+        cal.setTimeInMillis(current);
+        for (int i=0;i<days;i++) {
+            dates.add(current);
+            cal.add(Calendar.DATE, 1);
+            current = cal.getTimeInMillis();
+        }
+        dates.add(current);
+        cal.add(Calendar.DATE, 1);
+        current = cal.getTimeInMillis();
+        dates.add(current);
         return dates;
     }
     /**
