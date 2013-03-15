@@ -35,8 +35,13 @@ public final class Txt {
     private static final String capsCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     private static final String standardCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz";
     private static final String extendedCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz~!@#$%^&*()_+=-{}][;:/?><,.";
+    private static final char quote = '\'';
+    private static final String escapeQuote = "\\\'";
+    private static final char doubleQuote = '"';
+    private static final String escapeDoubleQuote = "\\\"";
+    private static final char escapeSlash = '\\';
     public static enum Chars {STANDARD,EXTENDED,CAPS,NUMBERS};
-    
+
     private Txt () {}
 
     /**
@@ -60,16 +65,16 @@ public final class Txt {
      * @param string  <code>String</code>
      * @return changedString  <code>String</code>
      */
-    public static String escapeQuote (final String s) {
+    public static String escapeQuote (final String s, final boolean doubleQuoteOnly) {
         final StringBuilder sb = new StringBuilder();
         final int strlen = s.length();
         for (int i=0; i<strlen; i++) {
             final char c = s.charAt(i);
-            if (c == '\'') {
-                sb.append("\\\'");
+            if (c == quote && !doubleQuoteOnly) {
+                sb.append(escapeQuote);
             }
-            else if (c == '"') {
-                sb.append("\\\"");
+            else if (c == doubleQuote) {
+                sb.append(escapeDoubleQuote);
             }
             else { sb.append(c); }
         }
@@ -86,7 +91,7 @@ public final class Txt {
         final int strlen = s.length();
         for (int i=0; i<strlen; i++) {
             final char c = s.charAt(i);
-            if (c != '\\') { sb.append(c); }
+            if (c != escapeSlash) { sb.append(c); }
         }
         return sb.toString();
     }
@@ -201,7 +206,7 @@ public final class Txt {
         return false;
     }
     /**
-     * Join all elements of a <code>String[]</code> into a <code>String</code>. 
+     * Join all elements of a <code>String[]</code> into a <code>String</code>.
      * @param string <code>String[]</code> - the array to join together.
      * @param glue <code>String</code> a string to append between <code>String[]</code> elements.
      * @return <code>String</code>
@@ -221,7 +226,7 @@ public final class Txt {
         return sb.toString();
     }
     /**
-     * Join all elements of a <code>List</code> into a <code>String</code>. 
+     * Join all elements of a <code>List</code> into a <code>String</code>.
      * @param list <code>List</code> - the list to join together.
      * @param glue <code>String</code> a string to append between <code>String[]</code> elements.
      * @return <code>String</code>
@@ -260,7 +265,7 @@ public final class Txt {
         return sb.toString();
     }
     /**
-     * Count the number of occurances of a <code>char</code> in a <code>String</code>.
+     * Count the number of occurrence of a <code>char</code> in a <code>String</code>.
      * @param needle <code>char</code>
      * @param haystack <code>String</code>
      * @return <code>int</code>
@@ -297,7 +302,7 @@ public final class Txt {
     }
     private static String getCharacters (final Txt.Chars chars) {
         switch (chars) {
-            case STANDARD: 
+            case STANDARD:
                 return standardCharacters;
             case EXTENDED:
                 return extendedCharacters;

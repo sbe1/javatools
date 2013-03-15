@@ -26,10 +26,12 @@ import java.util.*;
  */
 public final class DT {
     public static enum DateRange {DAY7,DAY14,DAY28,DAY30,DAY60,DAY90};
+    private static final String EMPTY = "";
     private static final SimpleDateFormat fdt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     private static final SimpleDateFormat fd = new SimpleDateFormat("yyyy-MM-dd");
+    private static final SimpleDateFormat txtDate = new SimpleDateFormat("MMMM d, yyyy",Locale.ENGLISH);
     private static final SimpleDateFormat rfc822 = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z",Locale.ENGLISH);
-    private static final SimpleDateFormat iso = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssz",Locale.ENGLISH);
+    private static final SimpleDateFormat iso = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'",Locale.ENGLISH);
     private static final SimpleDateFormat twd = new SimpleDateFormat("EEE MMM dd HH:mm:ss ZZZZZ yyyy", Locale.ENGLISH);
 
     private DT () {}
@@ -40,6 +42,14 @@ public final class DT {
      */
     public synchronized static String formatDateTime (final Date d) {
         return fdt.format(d);
+    }
+    /**
+     * Format <code>Date</code> to <code>yyyy-MM-dd HH:mm:ss</code> format.
+     * @param d <code>Date</code>
+     * @return <code>String</code>
+     */
+    public synchronized static String formatTextDate (final Date d) {
+        return txtDate.format(d);
     }
     /**
      * Format <code>Date</code> to RFC-822 (<code>EEE, dd MMM yyyy HH:mm:ss Z</code>) date format.
@@ -63,7 +73,7 @@ public final class DT {
      * @return <code>String</code>
      */
     public synchronized static String formatTwitterDate (final Date d) {
-        return fdt.format(d);
+        return twd.format(d);
     }
     /**
      * Format <code>Date</code> to <code>yyyy-MM-dd</code> date format.
@@ -83,6 +93,45 @@ public final class DT {
         try { dateObj = fd.parse(date); }
         catch (final Exception e) {}
         return dateObj;
+    }
+    /**
+     * Convert <code>String</code> representation of a date to a <code>Date</code>.
+     * @param d <code>Date</code>
+     * @return <code>String</code>
+     */
+    public synchronized static Date stringToDateISO (final String date) {
+        Date dateObj = null;
+        try { dateObj = iso.parse(date); }
+        catch (final Exception e) {}
+        return dateObj;
+    }
+    /**
+     * Convert <code>String</code> representation of a date to a <code>Date</code>.
+     * @param d <code>Date</code>
+     * @return <code>String</code>
+     */
+    public synchronized static String isoDateToTextDate (final String date) {
+        String textDate = EMPTY;
+        try {
+            final Date dateObj = iso.parse(date);
+            textDate = formatTextDate(dateObj);
+        }
+        catch (final Exception e) {}
+        return textDate;
+    }
+    /**
+     * Convert <code>String</code> representation of a date to a <code>Date</code>.
+     * @param d <code>Date</code>
+     * @return <code>String</code>
+     */
+    public synchronized static String isoDateToDate (final String date) {
+        String textDate = EMPTY;
+        try {
+            final Date dateObj = iso.parse(date);
+            textDate = formatDate(dateObj);
+        }
+        catch (final Exception e) {}
+        return textDate;
     }
     /**
      * Calculate the number of days between two dates represented as <code>String</code>s.

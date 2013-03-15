@@ -10,7 +10,9 @@ CookieTools.java - HTTP Cookie manipulation methods.
 
 Crypto.java - Crypto and Security Tools.
 
-DB.java - JDBC/JDNI Database class.
+DB.java - JDBC/JDNI database class.
+
+JDBC.java - JDBC single connection database class.
 
 DT.java - Various date manipulation and formatting methods.
 
