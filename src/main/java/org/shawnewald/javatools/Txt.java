@@ -214,7 +214,7 @@ public final class Txt {
      */
     public static String rejoin (final String string, final String splitBy, final String glue) {
         final String[] split = string.split(splitBy);
-        return join(split, glue);v
+        return join(split, glue);
     }
     /**
      * Join all elements of a <code>String[]</code> into a <code>String</code>.
