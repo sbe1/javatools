@@ -206,6 +206,17 @@ public final class Txt {
         return false;
     }
     /**
+     * Splits a string by user supplied criteria and joins the string together again using user supplied "glue" characters.
+     * @param string <code>String</code>
+     * @param splitBy <code>String</code>
+     * @param glue <code>String</code>
+     * @return <code>String</code>
+     */
+    public static String rejoin (final String string, final String splitBy, final String glue) {
+        final String[] split = string.split(splitBy);
+        return join(split, glue);
+    }
+    /**
      * Join all elements of a <code>String[]</code> into a <code>String</code>.
      * @param string <code>String[]</code> - the array to join together.
      * @param glue <code>String</code> a string to append between <code>String[]</code> elements.
