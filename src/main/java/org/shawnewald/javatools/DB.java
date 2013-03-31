@@ -3,11 +3,12 @@ package org.shawnewald.javatools;
 import java.sql.*;
 import java.sql.Date;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
-import org.apache.log4j.Logger;
 /**
  * JDBC/JDNI Database class
  *
@@ -48,7 +49,7 @@ public final class DB {
     private DataSource datasource;
     private int resultLimit = 30;
     private int batchSize = 1000;
-    private static final Logger LOG = Logger.getLogger(DB.class);
+    private static final Logger LOG = Logger.getLogger(DB.class.getName());
 
     /**
      * Class constructor, initializes connection to JNDI datasource.
@@ -86,7 +87,7 @@ public final class DB {
             datasource = (DataSource)initialContext.lookup(datasourceContext);
         }
         catch (final NamingException e) {
-            LOG.error(e);
+            LOG.log(Level.SEVERE,e.getMessage(),e);
             throw new RuntimeException(e);
         }
     }
@@ -100,7 +101,7 @@ public final class DB {
             con = datasource.getConnection();
         }
         catch (final SQLException ex) {
-            LOG.error(ex);
+            LOG.log(Level.SEVERE,ex.getMessage(),ex);
             throw new RuntimeException(ex);
         }
         return con;
@@ -116,7 +117,7 @@ public final class DB {
             }
         }
         catch (final SQLException ex) {
-            LOG.error(ex);
+            LOG.log(Level.SEVERE,ex.getMessage(),ex);
             throw new RuntimeException(ex);
         }
     }
@@ -130,7 +131,7 @@ public final class DB {
                 stmt.close();
             }
         }
-        catch (final SQLException ex) { LOG.error(ex); }
+        catch (final SQLException ex) { LOG.log(Level.SEVERE,ex.getMessage(),ex); }
     }
     /**
      * Close <code>PreparedStatement</code>
@@ -142,7 +143,7 @@ public final class DB {
                 stmt.close();
             }
         }
-        catch (final SQLException ex) { LOG.error(ex); }
+        catch (final SQLException ex) { LOG.log(Level.SEVERE,ex.getMessage(),ex); }
     }
     /**
      * Close <code>ResultSet</code>
@@ -154,7 +155,7 @@ public final class DB {
                 rs.close();
             }
         }
-        catch (final SQLException ex) { LOG.error(ex); }
+        catch (final SQLException ex) { LOG.log(Level.SEVERE,ex.getMessage(),ex); }
     }
     /**
      * Execute SQL query and return the result with no result limit.
@@ -243,7 +244,7 @@ public final class DB {
             }
         }
         catch (final SQLException ex) {
-            LOG.error(ex);
+            LOG.log(Level.SEVERE,ex.getMessage(),ex);
             throw new RuntimeException(ex);
         }
         finally {
@@ -274,7 +275,7 @@ public final class DB {
             }
         }
         catch (final SQLException ex) {
-            LOG.error(ex);
+            LOG.log(Level.SEVERE,ex.getMessage(),ex);
             throw new RuntimeException(ex);
         }
         finally {
@@ -309,7 +310,7 @@ public final class DB {
             }
         }
         catch (final SQLException ex) {
-            LOG.error(ex);
+            LOG.log(Level.SEVERE,ex.getMessage(),ex);
             throw new RuntimeException(ex);
         }
         finally {
@@ -347,7 +348,7 @@ public final class DB {
             }
         }
         catch (final SQLException ex) {
-            LOG.error(ex);
+            LOG.log(Level.SEVERE,ex.getMessage(),ex);
             throw new RuntimeException(ex);
         }
         finally {
@@ -379,7 +380,7 @@ public final class DB {
             }
         }
         catch (final SQLException ex) {
-            LOG.error(ex);
+            LOG.log(Level.SEVERE,ex.getMessage(),ex);
             throw new RuntimeException(ex);
         }
         finally {
@@ -424,7 +425,7 @@ public final class DB {
             }
         }
         catch (final SQLException ex) {
-            LOG.error(ex);
+            LOG.log(Level.SEVERE,ex.getMessage(),ex);
             throw new RuntimeException(ex);
         }
         finally {
@@ -475,7 +476,7 @@ public final class DB {
             stmt.executeUpdate(query);
         }
         catch (final SQLException ex) {
-            LOG.error(ex);
+            LOG.log(Level.SEVERE,ex.getMessage(),ex);
             throw new RuntimeException(ex);
         }
         finally {
@@ -498,7 +499,7 @@ public final class DB {
             stmt.executeUpdate();
         }
         catch (final SQLException ex) {
-            LOG.error(ex);
+            LOG.log(Level.SEVERE,ex.getMessage(),ex);
             throw new RuntimeException(ex);
         }
         finally {
@@ -525,7 +526,7 @@ public final class DB {
             }
         }
         catch (final SQLException ex) {
-            LOG.error(ex + litDetails + query);
+            LOG.severe(ex + litDetails + query);
             throw new RuntimeException(ex);
         }
         finally {
@@ -557,7 +558,7 @@ public final class DB {
             }
         }
         catch (final SQLException ex) {
-            LOG.error(ex);
+            LOG.log(Level.SEVERE,ex.getMessage(),ex);
             throw new RuntimeException(ex);
         }
         finally {
@@ -590,7 +591,7 @@ public final class DB {
             }
         }
         catch (final SQLException ex) {
-            LOG.error(ex);
+            LOG.log(Level.SEVERE,ex.getMessage(),ex);
             throw new RuntimeException(ex);
         }
         finally {
@@ -619,7 +620,7 @@ public final class DB {
             stmt.executeBatch();
         }
         catch (final SQLException ex) {
-            LOG.error(ex);
+            LOG.log(Level.SEVERE,ex.getMessage(),ex);
             throw new RuntimeException(ex);
         }
         finally {
@@ -650,7 +651,7 @@ public final class DB {
             }
         }
         catch (final SQLException e) {
-            LOG.error(e);
+            LOG.log(Level.SEVERE,e.getMessage(),e);
         }
         return rows;
     }
@@ -677,7 +678,7 @@ public final class DB {
             }
         }
         catch (final Exception e) {
-            LOG.error(e);
+            LOG.log(Level.SEVERE,e.getMessage(),e);
         }
     }
 
@@ -686,6 +687,7 @@ public final class DB {
     private static final String litTypeLong = "java.lang.Long";
     private static final String litTypeDouble = "java.lang.Double";
     private static final String litTypeFloat = "java.lang.Float";
+    private static final String litTypeShort = "java.lang.Short";
     private static final String litTypeBigInt = "java.math.BigInteger";
     private static final String litTypeBigDecimal = "java.math.BigDecimal";
     private static final String litTypeBoolean = "java.lang.Boolean";
@@ -735,6 +737,9 @@ public final class DB {
             else if (type.equals(litTypeFloat)) {
                 stmt.setFloat(i, (Float) item);
             }
+            else if (type.equals(litTypeShort)) {
+                stmt.setShort(i, (Short) item);
+            }
             else if (type.equals(litTypeBigInt)) {
                 stmt.setLong(i, (Long) item);
             }
@@ -744,8 +749,11 @@ public final class DB {
             else if (type.equals(litTypeBoolean)) {
                 stmt.setBoolean(i, (Boolean) item);
             }
-            else if (type.equals(litTypeDate) || type.equals(litTypeSQLDate)) {
-                stmt.setDate(i, (Date) item);
+            else if (type.equals(litTypeDate)) {
+                stmt.setDate(i, new java.sql.Date(((java.util.Date)item).getTime()));
+            }
+            else if (type.equals(litTypeSQLDate)) {
+                stmt.setDate(i, (java.sql.Date) item);
             }
             else if (type.equals(litTypeTime)) {
                 stmt.setTime(i, (Time) item);
@@ -761,9 +769,9 @@ public final class DB {
             }
         }
         catch (final SQLException e) {
-            LOG.error(e);
-            LOG.error(litPreparedStatement + stmt);
-            LOG.error(LT.getStackTrace(e));
+            LOG.log(Level.SEVERE,e.getMessage(),e);
+            LOG.severe(litPreparedStatement + stmt);
+            LOG.severe(LT.getStackTrace(e));
         }
     }
 }

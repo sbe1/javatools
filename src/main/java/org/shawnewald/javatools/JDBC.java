@@ -636,6 +636,7 @@ public final class JDBC {
     private static final String litTypeLong = "java.lang.Long";
     private static final String litTypeDouble = "java.lang.Double";
     private static final String litTypeFloat = "java.lang.Float";
+    private static final String litTypeShort = "java.lang.Short";
     private static final String litTypeBigInt = "java.math.BigInteger";
     private static final String litTypeBigDecimal = "java.math.BigDecimal";
     private static final String litTypeBoolean = "java.lang.Boolean";
@@ -685,6 +686,9 @@ public final class JDBC {
             else if (type.equals(litTypeFloat)) {
                 stmt.setFloat(i, (Float) item);
             }
+            else if (type.equals(litTypeShort)) {
+                stmt.setShort(i, (Short) item);
+            }
             else if (type.equals(litTypeBigInt)) {
                 stmt.setLong(i, (Long) item);
             }
@@ -694,8 +698,11 @@ public final class JDBC {
             else if (type.equals(litTypeBoolean)) {
                 stmt.setBoolean(i, (Boolean) item);
             }
-            else if (type.equals(litTypeDate) || type.equals(litTypeSQLDate)) {
-                stmt.setDate(i, (Date) item);
+            else if (type.equals(litTypeDate)) {
+                stmt.setDate(i, new java.sql.Date(((java.util.Date)item).getTime()));
+            }
+            else if (type.equals(litTypeSQLDate)) {
+                stmt.setDate(i, (java.sql.Date) item);
             }
             else if (type.equals(litTypeTime)) {
                 stmt.setTime(i, (Time) item);
