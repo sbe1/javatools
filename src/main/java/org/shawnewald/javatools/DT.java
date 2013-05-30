@@ -44,7 +44,7 @@ public final class DT {
         return fdt.format(d);
     }
     /**
-     * Format <code>Date</code> to <code>yyyy-MM-dd HH:mm:ss</code> format.
+     * Format <code>Date</code> to <code>MMMM d, yyyy</code> format.
      * @param d <code>Date</code>
      * @return <code>String</code>
      */
