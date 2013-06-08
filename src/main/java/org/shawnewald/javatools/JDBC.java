@@ -14,16 +14,10 @@ import org.apache.log4j.Logger;
  * All query results are disconnected, meaning an active
  * <code>ResultSet</code> is not returned on queries that return a result.
  *
- * Instead, a
- * <code>List</code> of
- * <code>Map</code>s is returned -- with the exception of three utility methods
- * which return a
- * <code>List</code> of
- * <code>String</code>s, a
- * <code>List</code> of
- * <code>Object</code>s, and a
- * <code>Set</code> of
- * <code>Object</code>s, respectively.
+ * Instead, a <code>List</code> of <code>Map</code>s is returned -- with the exception
+ * of three utility methods which return a <code>List</code> of <code>String</code>s,
+ * a <code>List</code> of <code>Object</code>s, and a <code>Set</code> of <code>Object</code>s,
+ * respectively.
  *
  * Prepared queries are supported, but not named parameters. Batch queries,
  * including prepared batch queries are also supported.
@@ -48,7 +42,6 @@ import org.apache.log4j.Logger;
  */
 public final class JDBC {
     private static Connection con;
-    //private String connectionString;
     private int resultLimit = 30;
     private int batchSize = 1000;
     private static final Logger LOG = Logger.getLogger(JDBC.class);
@@ -278,7 +271,6 @@ public final class JDBC {
         finally {
             closeResultSet(rs);
             closeStatement(stmt);
-            //closeConnection(con);
         }
         return result;
     }
@@ -311,7 +303,6 @@ public final class JDBC {
         finally {
             closeResultSet(rs);
             closePreparedStatement(stmt);
-            //closeConnection(con);
         }
         return result;
     }
@@ -348,7 +339,6 @@ public final class JDBC {
         finally {
             closeResultSet(rs);
             closeStatement(stmt);
-            //closeConnection(con);
         }
         return result;
     }
@@ -387,7 +377,6 @@ public final class JDBC {
         finally {
             closeResultSet(rs);
             closePreparedStatement(stmt);
-            //closeConnection(con);
         }
         return result;
     }
@@ -422,7 +411,6 @@ public final class JDBC {
         finally {
             closeResultSet(rs);
             closeStatement(stmt);
-            //closeConnection(con);
         }
         return list;
     }
@@ -472,7 +460,6 @@ public final class JDBC {
         finally {
             closeResultSet(rs);
             closeStatement(stmt);
-            //closeConnection(con);
         }
         return set;
     }
@@ -526,7 +513,6 @@ public final class JDBC {
         }
         finally {
             closeStatement(stmt);
-            //closeConnection(con);
         }
     }
 
@@ -552,7 +538,6 @@ public final class JDBC {
         }
         finally {
             closePreparedStatement(stmt);
-            //closeConnection(con);
         }
     }
 
@@ -584,7 +569,6 @@ public final class JDBC {
         finally {
             closeResultSet(rs);
             closeStatement(stmt);
-            //closeConnection(con);
         }
         return result;
     }
@@ -618,7 +602,6 @@ public final class JDBC {
         finally {
             closeResultSet(rs);
             closePreparedStatement(stmt);
-            //closeConnection(con);
         }
         return result;
     }
@@ -652,7 +635,6 @@ public final class JDBC {
         }
         finally {
             closeStatement(stmt);
-            //closeConnection(con);
         }
     }
 
@@ -684,7 +666,6 @@ public final class JDBC {
         }
         finally {
             closePreparedStatement(stmt);
-            //closeConnection(con);
         }
     }
 
@@ -772,22 +753,15 @@ public final class JDBC {
     /**
      * Sets a value as a
      * <code>PreparedStatement</code> parameter. Not all possible Java object
-     * types are supported. Supported types:
-     * <code>String</code>,
-     * <code>int</code>,
-     * <code>Integer</code>,
-     * <code>long</code>,
-     * <code>Long</code>,
-     * <code>double</code>,
-     * <code>Double</code>,
-     * <code>float</code>,
-     * <code>Float</code>,
-     * <code>BigInteger</code>,
-     * <code>Boolean</code>,
-     * <code>Date</code>,
-     * <code>Time</code>,
-     * <code>Timestamp</code> and
-     * <code>Object</code>
+     * types are supported.
+     *
+     * Supported types:
+     * <code>String</code>, <code>Integer</code>,
+     * <code>Long</code>, <code>Double</code>, <code>Float</code>, <code>Short</code>,
+     * <code>java.math.BigInteger</code>, <code>java.math.BigDecimal</code>,
+     * <code>Boolean</code>, <code>java.util.Date</code>, <code>java.sql.Date</code>,
+     * <code>java.sql.Time</code>, <code>java.sql.Timestamp</code> <code>Object</code> and
+     * <code>null</code> (converted internally to java.sql.Types.NULL).
      *
      * @param stmt <code>PreparedStatement</code>
      * @param item <code>Object</code>, the value to be set

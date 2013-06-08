@@ -705,10 +705,15 @@ public final class DB {
     /**
      * Sets a value as a <code>PreparedStatement</code> parameter. Not all possible
      * Java object types are supported.
-     * Supported types: <code>String</code>, <code>int</code>, <code>Integer</code>,
-     * <code>long</code>, <code>Long</code>, <code>double</code>, <code>Double</code>,
-     * <code>float</code>, <code>Float</code>, <code>BigInteger</code>, <code>Boolean</code>,
-     * <code>Date</code>, <code>Time</code>, <code>Timestamp</code> and <code>Object</code>
+     *
+     * Supported types:
+     * <code>String</code>, <code>Integer</code>,
+     * <code>Long</code>, <code>Double</code>, <code>Float</code>, <code>Short</code>,
+     * <code>java.math.BigInteger</code>, <code>java.math.BigDecimal</code>,
+     * <code>Boolean</code>, <code>java.util.Date</code>, <code>java.sql.Date</code>,
+     * <code>java.sql.Time</code>, <code>java.sql.Timestamp</code> <code>Object</code> and
+     * <code>null</code> (converted internally to java.sql.Types.NULL).
+     * 
      * @param stmt <code>PreparedStatement</code>
      * @param item <code>Object</code>, the value to be set
      * @param type <code>String</code>, item object type from <code>item.getClass().getName()</code>
