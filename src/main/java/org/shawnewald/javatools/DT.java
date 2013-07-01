@@ -32,6 +32,7 @@ public final class DT {
     private static final SimpleDateFormat txtDate = new SimpleDateFormat("MMMM d, yyyy",Locale.ENGLISH);
     private static final SimpleDateFormat rfc822 = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z",Locale.ENGLISH);
     private static final SimpleDateFormat iso = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'",Locale.ENGLISH);
+    private static final SimpleDateFormat isoAlt = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss",Locale.ENGLISH);
     private static final SimpleDateFormat twd = new SimpleDateFormat("EEE MMM dd HH:mm:ss ZZZZZ yyyy", Locale.ENGLISH);
 
     private DT () {}
@@ -66,6 +67,14 @@ public final class DT {
      */
     public synchronized static String formatISODate (final Date d) {
         return iso.format(d);
+    }
+    /**
+     * Format <code>Date</code> to ISO (<code>yyyy-MM-dd'T'HH:mm:ssz</code>) date format.
+     * @param d <code>Date</code>
+     * @return <code>String</code>
+     */
+    public synchronized static String formatISOAltDate (final Date d) {
+        return isoAlt.format(d);
     }
     /**
      * Format <code>Date</code> to Twitter API (<code>yyyy-MM-dd'T'HH:mm:ssz</code>) date format.
@@ -110,6 +119,17 @@ public final class DT {
      * @param d <code>Date</code>
      * @return <code>String</code>
      */
+    public synchronized static Date stringToDateISOAlt (final String date) {
+        Date dateObj = null;
+        try { dateObj = isoAlt.parse(date); }
+        catch (final Exception e) {}
+        return dateObj;
+    }
+    /**
+     * Convert <code>String</code> representation of a date to a <code>Date</code>.
+     * @param d <code>Date</code>
+     * @return <code>String</code>
+     */
     public synchronized static String isoDateToTextDate (final String date) {
         String textDate = EMPTY;
         try {
@@ -124,10 +144,38 @@ public final class DT {
      * @param d <code>Date</code>
      * @return <code>String</code>
      */
+    public synchronized static String isoAltDateToTextDate (final String date) {
+        String textDate = EMPTY;
+        try {
+            final Date dateObj = isoAlt.parse(date);
+            textDate = formatTextDate(dateObj);
+        }
+        catch (final Exception e) {}
+        return textDate;
+    }
+    /**
+     * Convert <code>String</code> representation of a date to a <code>Date</code>.
+     * @param d <code>Date</code>
+     * @return <code>String</code>
+     */
     public synchronized static String isoDateToDate (final String date) {
         String textDate = EMPTY;
         try {
             final Date dateObj = iso.parse(date);
+            textDate = formatDate(dateObj);
+        }
+        catch (final Exception e) {}
+        return textDate;
+    }
+    /**
+     * Convert <code>String</code> representation of a date to a <code>Date</code>.
+     * @param d <code>Date</code>
+     * @return <code>String</code>
+     */
+    public synchronized static String isoAltDateToDate (final String date) {
+        String textDate = EMPTY;
+        try {
+            final Date dateObj = isoAlt.parse(date);
             textDate = formatDate(dateObj);
         }
         catch (final Exception e) {}
