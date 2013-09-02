@@ -432,6 +432,52 @@ public final class DT {
         return dates;
     }
     /**
+     * Get a <code>Set</code> of <code>Date</code>s.
+     * @param start <code>Date</code>
+     * @param days <code>int</code>
+     * @return <code>Set</code>
+     */
+    public static Set<Date> getDateRangeArray (final Date start, final int days)
+            throws ParseException {
+        final Set<Date> dates = new HashSet<Date>();
+        Date current = start;
+        final Calendar cal = Calendar.getInstance();
+        cal.setTimeInMillis(current.getTime());
+        for (int i=0;i<days;i++) {
+            dates.add(current);
+            cal.add(Calendar.DATE, 1);
+            current = cal.getTime();
+        }
+        dates.add(current);
+        cal.add(Calendar.DATE, 1);
+        current = cal.getTime();
+        dates.add(current);
+        return dates;
+    }
+    /**
+     * Get a <code>Set</code> of <code>Date</code>s.
+     * @param start <code>String</code>
+     * @param days <code>int</code>
+     * @return <code>Set</code>
+     */
+    public static Set<Date> getDateRangeArray (final String start, final int days)
+            throws ParseException {
+        final Set<Date> dates = new HashSet<Date>();
+        Date current = fd.parse(start);
+        final Calendar cal = Calendar.getInstance();
+        cal.setTimeInMillis(current.getTime());
+        for (int i=0;i<days;i++) {
+            dates.add(current);
+            cal.add(Calendar.DATE, 1);
+            current = cal.getTime();
+        }
+        dates.add(current);
+        cal.add(Calendar.DATE, 1);
+        current = cal.getTime();
+        dates.add(current);
+        return dates;
+    }
+    /**
      * Get current timestamp.
      * @return <code>Long</code>
      */
