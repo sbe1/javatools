@@ -369,7 +369,7 @@ public final class DT {
      * @return <code>Set</code>
      */
     public static Set<Long> getTimestampRangeArray (final long start, final long end) {
-        final Set<Long> dates = new LinkedHashSet<Long>();
+        final Set<Long> dates = new HashSet<Long>();
         final Calendar cal = Calendar.getInstance();
         cal.setTimeInMillis(start);
         long current = start;
@@ -392,7 +392,7 @@ public final class DT {
      * @return <code>Set</code>
      */
     public static Set<Long> getTimestampRangeArray (final Date start, final int days) {
-        final Set<Long> dates = new LinkedHashSet<Long>();
+        final Set<Long> dates = new HashSet<Long>();
         long current = start.getTime();
         final Calendar cal = Calendar.getInstance();
         cal.setTimeInMillis(current);
@@ -416,7 +416,7 @@ public final class DT {
      */
     public static Set<Long> getTimestampRangeArray (final String start, final int days)
             throws ParseException {
-        final Set<Long> dates = new LinkedHashSet<Long>();
+        final Set<Long> dates = new HashSet<Long>();
         long current = fd.parse(start).getTime();
         final Calendar cal = Calendar.getInstance();
         cal.setTimeInMillis(current);
@@ -439,7 +439,7 @@ public final class DT {
      */
     public static Set<Date> getDateRangeArray (final Date start, final int days)
             throws ParseException {
-        final Set<Date> dates = new LinkedHashSet<Date>();
+        final Set<Date> dates = new HashSet<Date>();
         Date current = start;
         final Calendar cal = Calendar.getInstance();
         cal.setTimeInMillis(current.getTime());
@@ -462,7 +462,7 @@ public final class DT {
      */
     public static Set<Date> getDateRangeArray (final String start, final int days)
             throws ParseException {
-        final Set<Date> dates = new LinkedHashSet<Date>();
+        final Set<Date> dates = new HashSet<Date>();
         Date current = fd.parse(start);
         final Calendar cal = Calendar.getInstance();
         cal.setTimeInMillis(current.getTime());
