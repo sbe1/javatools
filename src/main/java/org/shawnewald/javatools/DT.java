@@ -182,6 +182,28 @@ public final class DT {
         return textDate;
     }
     /**
+     * Convert <code>String</code> representation of a RFC 822 date to a <code>Date</code>.
+     * @param d <code>Date</code>
+     * @return <code>String</code>
+     */
+    public synchronized static Date stringToRFC822Date(final String date) {
+        Date dateObj = null;
+        try { dateObj = rfc822.parse(date); }
+        catch (final Exception e) {}
+        return dateObj;
+    }
+    /**
+     * Convert <code>String</code> representation of a Twitter API (<code>yyyy-MM-dd'T'HH:mm:ssz</code>) date to a <code>Date</code>.
+     * @param d <code>Date</code>
+     * @return <code>String</code>
+     */
+    public synchronized static Date stringToTwitterDate (final String date) {
+        Date dateObj = null;
+        try { dateObj = twd.parse(date); }
+        catch (final Exception e) {}
+        return dateObj;
+    }
+    /**
      * Calculate the number of days between two dates represented as <code>String</code>s.
      * @param start <code>String</code>
      * @param end <code>String</code>
