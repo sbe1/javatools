@@ -408,7 +408,13 @@ public final class DT {
         }
         return dates;
     }
-
+    /**
+     * Calculate a date range from <code>startDate</code> back to
+     * <code>days</code> past.
+     * @param startDate
+     * @param days
+     * @return 
+     */
     public static String[] setDates(final Date startDate, final int days) {
         final String[] dates = new String[2];
         if (startDate != null && days > 0) {
@@ -421,11 +427,11 @@ public final class DT {
     }
 
     /**
-     * Calculate a date range.
+     * Calculate a date range from <code>startDate</code> back to <code>endDate</code>.
      *
      * @param startDate
      * @param endDate
-     * @return
+     * @return <code>String[]</code>
      */
     public static String[] setStringDates(final Date startDate, final Date endDate) {
         final Date[] dates = setDates(startDate, endDate, null);
@@ -433,11 +439,11 @@ public final class DT {
     }
 
     /**
-     * Calculate a date range.
+     * Calculate a date range from <code>startDate</code> back to <code>endDate</code>.
      *
      * @param startDate
      * @param endDate
-     * @return
+     * @return <code>String[]</code>
      */
     public static String[] setStringDates(final String startDate, final String endDate) {
         final Date[] dates = setDates(stringToDate(startDate),
@@ -446,12 +452,12 @@ public final class DT {
     }
 
     /**
-     * Calculate a date range.
+     * Calculate a date range from <code>startDate</code> back to <code>timeInterval</code>.
      *
      * @param startDate
      * @param endDate
      * @param timeInterval
-     * @return
+     * @return <code></code>
      */
     public static String[] setStringDates(final Date startDate, final Date endDate,
             final DT.DateRange timeInterval) {
@@ -460,7 +466,7 @@ public final class DT {
     }
 
     /**
-     * Calculate a date range.
+     * Calculate a date range from <code>startDate</code> back to <code>timeInterval</code>.
      *
      * @param startDate
      * @param endDate

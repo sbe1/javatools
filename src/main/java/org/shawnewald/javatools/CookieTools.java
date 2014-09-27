@@ -173,10 +173,9 @@ public final class CookieTools {
      * @return cookie <code>Cookie</code>
      */
     public static Cookie deleteCookie (final String cookiename) {
-        final Cookie cookie = new Cookie(cookiename, null);
+        final Cookie cookie = new Cookie(cookiename, empty);
         cookie.setPath(cookiePath);
         cookie.setMaxAge(0);
-        cookie.setValue(empty);
         return cookie;
     }
     /**
@@ -187,11 +186,10 @@ public final class CookieTools {
      */
     public static Cookie deleteCookie (final String cookiename,
             final String cookieDomain) {
-        final Cookie cookie = new Cookie(cookiename, null);
+        final Cookie cookie = new Cookie(cookiename, empty);
         cookie.setDomain(cookieDomain);
         cookie.setPath(cookiePath);
         cookie.setMaxAge(0);
-        cookie.setValue(empty);
         return cookie;
     }
     /**
@@ -203,11 +201,10 @@ public final class CookieTools {
      */
     public static Cookie deleteCookie (final String cookiename,
             final String cookieDomain, final String cpath) {
-        final Cookie cookie = new Cookie(cookiename, null);
+        final Cookie cookie = new Cookie(cookiename, empty);
         cookie.setDomain(cookieDomain);
         cookie.setPath(cpath);
         cookie.setMaxAge(0);
-        cookie.setValue(empty);
         return cookie;
     }
     /**
