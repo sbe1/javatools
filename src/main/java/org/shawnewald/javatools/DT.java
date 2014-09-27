@@ -118,11 +118,11 @@ public final class DT {
     }
 
     /**
-     * Convert <code>String</code> representation of a date to a
+     * Convert <code>String</code> (<code>yyyy-MM-dd</code>) representation of a date to a
      * <code>Date</code>.
      *
-     * @param date <code>Date</code>
-     * @return <code>String</code>
+     * @param date <code>String</code>
+     * @return <code>Date</code>
      */
     public static Date stringToDate(final String date) {
         Date dateObj = null;
@@ -134,11 +134,11 @@ public final class DT {
     }
 
     /**
-     * Convert <code>String</code> representation of a date to a
+     * Convert <code>String</code> (<code>yyyy-MM-dd'T'HH:mm:ss'Z'</code>) representation of a date to a
      * <code>Date</code>.
      *
-     * @param date <code>Date</code>
-     * @return <code>String</code>
+     * @param date <code>String</code>
+     * @return <code>Date</code>
      */
     public static Date stringToDateISO(final String date) {
         Date dateObj = null;
@@ -150,11 +150,11 @@ public final class DT {
     }
 
     /**
-     * Convert <code>String</code> representation of a date to a
+     * Convert <code>String</code> (<code>yyyy-MM-dd'T'HH:mm:ss</code>) representation of a date to a
      * <code>Date</code>.
      *
-     * @param date <code>Date</code>
-     * @return <code>String</code>
+     * @param date <code>String</code>
+     * @return <code>Date</code>
      */
     public static Date stringToDateISOAlt(final String date) {
         Date dateObj = null;
@@ -166,10 +166,11 @@ public final class DT {
     }
 
     /**
-     * Convert <code>String</code> representation of a date to a
-     * <code>Date</code>.
+     * Convert <code>String</code> representation of an ISO date
+     * (<code>yyyy-MM-dd'T'HH:mm:ss'Z'</code>) to a
+     * <code>String</code> textual date representation (<code>MMMM d, yyyy</code>).
      *
-     * @param date <code>Date</code>
+     * @param date <code>String</code>
      * @return <code>String</code>
      */
     public static String isoDateToTextDate(final String date) {
@@ -183,10 +184,11 @@ public final class DT {
     }
 
     /**
-     * Convert <code>String</code> representation of a date to a
-     * <code>Date</code>.
+     * Convert <code>String</code> representation of an ISO date
+     * (<code>yyyy-MM-dd'T'HH:mm:ss</code>) to a
+     * <code>String</code> textual date representation (<code>MMMM d, yyyy</code>).
      *
-     * @param date <code>Date</code>
+     * @param date <code>String</code>
      * @return <code>String</code>
      */
     public static String isoAltDateToTextDate(final String date) {
@@ -200,10 +202,11 @@ public final class DT {
     }
 
     /**
-     * Convert <code>String</code> representation of a date to a
-     * <code>Date</code>.
+     * Convert <code>String</code> representation of an ISO date
+     * (<code>yyyy-MM-dd'T'HH:mm:ss'Z'</code>) to another
+     * <code>String</code> representation of a date (<code>yyyy-MM-dd</code>).
      *
-     * @param date <code>Date</code>
+     * @param date <code>String</code>
      * @return <code>String</code>
      */
     public static String isoDateToDate(final String date) {
@@ -217,8 +220,9 @@ public final class DT {
     }
 
     /**
-     * Convert <code>String</code> representation of a date to a
-     * <code>Date</code>.
+    * Convert <code>String</code> representation of an ISO date
+     * (<code>yyyy-MM-dd'T'HH:mm:ss</code>) to another
+     * <code>String</code> representation of a date (<code>yyyy-MM-dd</code>).
      *
      * @param date <code>Date</code>
      * @return <code>String</code>

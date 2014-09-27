@@ -84,7 +84,6 @@ public final class IPConv {
         final int[] intArray = new int[4];
         for (int i=0;i<4;i++) {
             intArray[i] = Integer.parseInt(strArray[i]);
-            i++;
         }
         return intArray;
     }
