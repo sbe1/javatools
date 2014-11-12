@@ -151,39 +151,6 @@ public class DTTest extends TestCase {
     }
 
     /**
-     * Test of isoAltDateToTextDate method, of class DT.
-     */
-    public void testIsoAltDateToTextDate () {
-        System.out.println("isoAltDateToTextDate");
-        String date = "1970-01-01T00:00:00";
-        String expResult = "January 1, 1970";
-        String result = DT.isoAltDateToTextDate(date);
-        assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of isoDateToDate method, of class DT.
-     */
-    public void testIsoDateToDate () {
-        System.out.println("isoDateToDate");
-        String date = "1970-01-01T00:00:00Z";
-        String expResult = "1970-01-01";
-        String result = DT.isoDateToDate(date);
-        assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of isoAltDateToDate method, of class DT.
-     */
-    public void testIsoAltDateToDate () {
-        System.out.println("isoAltDateToDate");
-        String date = "1970-01-01T00:00:00";
-        String expResult = "1970-01-01";
-        String result = DT.isoAltDateToDate(date);
-        assertEquals(expResult, result);
-    }
-
-    /**
      * Test of stringToRFC822Date method, of class DT.
      */
     public void testStringToRFC822Date () {

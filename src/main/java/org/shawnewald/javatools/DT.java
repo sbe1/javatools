@@ -26,12 +26,12 @@ import java.util.*;
  *
  */
 public final class DT {
-
+    public static enum DateFormats {
+        DATE, DATETIME, TEXTDATE, RFC822, ISO, ISOALT, TWITTER
+    };
     public static enum DateRange {
-
         DAY7, DAY14, DAY28, DAY30, DAY60, DAY90
     };
-    private static final String EMPTY = "";
     private static final SimpleDateFormat fdt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     private static final SimpleDateFormat fd = new SimpleDateFormat("yyyy-MM-dd");
     private static final SimpleDateFormat txtDate = new SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH);
@@ -53,6 +53,16 @@ public final class DT {
         return fdt.format(date);
     }
 
+    /**
+     * Format <code>Date</code> to <code>yyyy-MM-dd</code> date format.
+     *
+     * @param date <code>Date</code>
+     * @return <code>String</code>
+     */
+    public static String formatDate(final Date date) {
+        return fd.format(date);
+    }
+    
     /**
      * Format <code>Date</code> to <code>MMMM d, yyyy</code> format.
      *
@@ -108,16 +118,6 @@ public final class DT {
     }
 
     /**
-     * Format <code>Date</code> to <code>yyyy-MM-dd</code> date format.
-     *
-     * @param date <code>Date</code>
-     * @return <code>String</code>
-     */
-    public static String formatDate(final Date date) {
-        return fd.format(date);
-    }
-
-    /**
      * Convert <code>String</code> (<code>yyyy-MM-dd</code>) representation of a date to a
      * <code>Date</code>.
      *
@@ -133,6 +133,56 @@ public final class DT {
         return dateObj;
     }
 
+    /**
+     * Convert <code>String</code> (<code>yyyy-MM-dd HH:mm:ss</code>) representation of a date to a
+     * <code>Date</code>.
+     *
+     * @param date <code>String</code>
+     * @return <code>Date</code>
+     */
+    public static Date stringToDateTime(final String date) {
+        Date dateObj = null;
+        try {
+            dateObj = fdt.parse(date);
+        }
+        catch (final Exception ignore) {}
+        return dateObj;
+    }
+    
+    /**
+     * Convert <code>String</code> representation of an ISO date
+     * (<code>yyyy-MM-dd'T'HH:mm:ss'Z'</code>) to a
+     * <code>String</code> textual date representation (<code>MMMM d, yyyy</code>).
+     *
+     * @param date <code>String</code>
+     * @return <code>String</code>
+     */
+    public static String isoDateToTextDate(final String date) {
+        String textDate = null;
+        try {
+            final Date dateObj = iso.parse(date);
+            textDate = formatTextDate(dateObj);
+        }
+        catch (final Exception ignore) {}
+        return textDate;
+    }
+
+    /**
+     * Convert <code>String</code> representation of a RFC-822
+     * (<code>EEE, dd MMM yyyy HH:mm:ss Z</code>) date to a <code>Date</code>.
+     *
+     * @param date <code>Date</code>
+     * @return <code>String</code>
+     */
+    public static Date stringToRFC822Date(final String date) {
+        Date dateObj = null;
+        try {
+            dateObj = rfc822.parse(date);
+        }
+        catch (final Exception ignore) {}
+        return dateObj;
+    }
+    
     /**
      * Convert <code>String</code> (<code>yyyy-MM-dd'T'HH:mm:ss'Z'</code>) representation of a date to a
      * <code>Date</code>.
@@ -166,94 +216,6 @@ public final class DT {
     }
 
     /**
-     * Convert <code>String</code> representation of an ISO date
-     * (<code>yyyy-MM-dd'T'HH:mm:ss'Z'</code>) to a
-     * <code>String</code> textual date representation (<code>MMMM d, yyyy</code>).
-     *
-     * @param date <code>String</code>
-     * @return <code>String</code>
-     */
-    public static String isoDateToTextDate(final String date) {
-        String textDate = EMPTY;
-        try {
-            final Date dateObj = iso.parse(date);
-            textDate = formatTextDate(dateObj);
-        }
-        catch (final Exception ignore) {}
-        return textDate;
-    }
-
-    /**
-     * Convert <code>String</code> representation of an ISO date
-     * (<code>yyyy-MM-dd'T'HH:mm:ss</code>) to a
-     * <code>String</code> textual date representation (<code>MMMM d, yyyy</code>).
-     *
-     * @param date <code>String</code>
-     * @return <code>String</code>
-     */
-    public static String isoAltDateToTextDate(final String date) {
-        String textDate = EMPTY;
-        try {
-            final Date dateObj = isoAlt.parse(date);
-            textDate = formatTextDate(dateObj);
-        }
-        catch (final Exception ignore) {}
-        return textDate;
-    }
-
-    /**
-     * Convert <code>String</code> representation of an ISO date
-     * (<code>yyyy-MM-dd'T'HH:mm:ss'Z'</code>) to another
-     * <code>String</code> representation of a date (<code>yyyy-MM-dd</code>).
-     *
-     * @param date <code>String</code>
-     * @return <code>String</code>
-     */
-    public static String isoDateToDate(final String date) {
-        String textDate = EMPTY;
-        try {
-            final Date dateObj = iso.parse(date);
-            textDate = formatDate(dateObj);
-        }
-        catch (final Exception ignore) {}
-        return textDate;
-    }
-
-    /**
-    * Convert <code>String</code> representation of an ISO date
-     * (<code>yyyy-MM-dd'T'HH:mm:ss</code>) to another
-     * <code>String</code> representation of a date (<code>yyyy-MM-dd</code>).
-     *
-     * @param date <code>Date</code>
-     * @return <code>String</code>
-     */
-    public static String isoAltDateToDate(final String date) {
-        String textDate = EMPTY;
-        try {
-            final Date dateObj = isoAlt.parse(date);
-            textDate = formatDate(dateObj);
-        }
-        catch (final Exception ignore) {}
-        return textDate;
-    }
-
-    /**
-     * Convert <code>String</code> representation of a RFC-822
-     * (<code>EEE, dd MMM yyyy HH:mm:ss Z</code>) date to a <code>Date</code>.
-     *
-     * @param date <code>Date</code>
-     * @return <code>String</code>
-     */
-    public static Date stringToRFC822Date(final String date) {
-        Date dateObj = null;
-        try {
-            dateObj = rfc822.parse(date);
-        }
-        catch (final Exception ignore) {}
-        return dateObj;
-    }
-
-    /**
      * Convert <code>String</code> representation of a Twitter API
      * (<code>yyyy-MM-dd'T'HH:mm:ssz</code>) date to a <code>Date</code>.
      *
@@ -269,6 +231,24 @@ public final class DT {
         return dateObj;
     }
 
+    /**
+     * Converts a date object to the string representation of a date, formatted
+     * to the specified string format.
+     * @param date <code>Date</doce>
+     * @param format <code>DateFormat</code>
+     * @return <code>String</code>
+     */
+    public static String dateToFormat (final Date date, final DT.DateFormats format) {
+        if (format == DateFormats.DATE) { return fd.format(date); }
+        else if (format == DateFormats.DATETIME) { return fdt.format(date); }
+        else if (format == DateFormats.TEXTDATE) { return txtDate.format(date); }
+        else if (format == DateFormats.RFC822) { return rfc822.format(date); }
+        else if (format == DateFormats.ISO) { return iso.format(date); }
+        else if (format == DateFormats.ISOALT) { return isoAlt.format(date); }
+        else if (format == DateFormats.TWITTER) { return twd.format(date); }
+        else { return ""; }
+    }
+    
     /**
      * Calculate the number of days between two dates represented as
      * <code>String</code>s.
@@ -487,7 +467,7 @@ public final class DT {
      * @param end <code>long</code>
      * @return <code>Set</code>
      */
-    public static Set<Long> getTimestampRangeArray(final long start, final long end) {
+    public static Set<Long> getTimestampRange(final long start, final long end) {
         final Set<Long> dates = new HashSet<Long>();
         final Calendar cal = Calendar.getInstance();
         cal.setTimeInMillis(start);
@@ -514,7 +494,7 @@ public final class DT {
      * @param days <code>int</code>
      * @return <code>Set</code>
      */
-    public static Set<Long> getTimestampRangeArray(final Date start, final int days) {
+    public static Set<Long> getTimestampRange(final Date start, final int days) {
         final Set<Long> dates = new HashSet<Long>();
         long current = start.getTime();
         final Calendar cal = Calendar.getInstance();
@@ -540,7 +520,7 @@ public final class DT {
      * @return <code>Set</code>
      * @throws ParseException
      */
-    public static Set<Long> getTimestampRangeArray(final String start, final int days)
+    public static Set<Long> getTimestampRange(final String start, final int days)
             throws ParseException {
         final Set<Long> dates = new HashSet<Long>();
         long current = fd.parse(start).getTime();
@@ -566,7 +546,7 @@ public final class DT {
      * @return <code>Set</code>
      * @throws ParseException
      */
-    public static Set<Date> getDateRangeArray(final Date start, final int days)
+    public static Set<Date> getDateRange(final Date start, final int days)
             throws ParseException {
         final Set<Date> dates = new HashSet<Date>();
         Date current = start;
@@ -592,7 +572,7 @@ public final class DT {
      * @return <code>Set</code>
      * @throws ParseException
      */
-    public static Set<Date> getDateRangeArray(final String start, final int days)
+    public static Set<Date> getDateRange(final String start, final int days)
             throws ParseException {
         final Set<Date> dates = new HashSet<Date>();
         Date current = fd.parse(start);
