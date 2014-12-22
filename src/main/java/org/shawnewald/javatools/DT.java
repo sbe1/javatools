@@ -27,11 +27,12 @@ import java.util.*;
  */
 public final class DT {
     public static enum DateFormats {
-        DATE, DATETIME, TEXTDATE, RFC822, ISO, ISOALT, TWITTER
+        UNFORMATTED, DATE, DATETIME, TEXTDATE, RFC822, ISO, ISOALT, TWITTER
     };
     public static enum DateRange {
         DAY7, DAY14, DAY28, DAY30, DAY60, DAY90
     };
+    private static final SimpleDateFormat ufd = new SimpleDateFormat("yyyyMMdd");
     private static final SimpleDateFormat fdt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     private static final SimpleDateFormat fd = new SimpleDateFormat("yyyy-MM-dd");
     private static final SimpleDateFormat txtDate = new SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH);
@@ -43,6 +44,16 @@ public final class DT {
     private DT() {
     }
 
+        /**
+     * Format <code>Date</code> to <code>yyyyMMdd</code> date format.
+     *
+     * @param date <code>Date</code>
+     * @return <code>String</code>
+     */
+    public static String formatUnformattedDate(final Date date) {
+        return ufd.format(date);
+    }
+    
     /**
      * Format <code>Date</code> to <code>yyyy-MM-dd HH:mm:ss</code> format.
      *
@@ -117,6 +128,22 @@ public final class DT {
         return twd.format(date);
     }
 
+     /**
+     * Convert <code>String</code> (<code>yyyyMMdd</code>) representation of a date to a
+     * <code>Date</code>.
+     *
+     * @param date <code>String</code>
+     * @return <code>Date</code>
+     */
+    public static Date stringToUnformattedDate(final String date) {
+        Date dateObj = null;
+        try {
+            dateObj = ufd.parse(date);
+        }
+        catch (final Exception ignore) {}
+        return dateObj;
+    }
+    
     /**
      * Convert <code>String</code> (<code>yyyy-MM-dd</code>) representation of a date to a
      * <code>Date</code>.
@@ -241,6 +268,7 @@ public final class DT {
     public static String dateToFormat (final Date date, final DT.DateFormats format) {
         if (format == DateFormats.DATE) { return fd.format(date); }
         else if (format == DateFormats.DATETIME) { return fdt.format(date); }
+        else if (format == DateFormats.UNFORMATTED) { return ufd.format(date); }
         else if (format == DateFormats.TEXTDATE) { return txtDate.format(date); }
         else if (format == DateFormats.RFC822) { return rfc822.format(date); }
         else if (format == DateFormats.ISO) { return iso.format(date); }

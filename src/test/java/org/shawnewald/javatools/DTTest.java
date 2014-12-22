@@ -105,7 +105,29 @@ public class DTTest extends TestCase {
         String result = DT.formatDate(date);
         assertEquals(expResult, result);
     }
+    
+    /**
+     * Test of formatDate method, of class DT.
+     */
+    public void testFormatUnformattedDate () {
+        System.out.println("formatUnformattedDate");
+        Date date = new Date(19872000);
+        String expResult = "19700101";
+        String result = DT.formatUnformattedDate(date);
+        assertEquals(expResult, result);
+    }
 
+    /**
+     * Test of stringToDate method, of class DT.
+     */
+    public void testStringToUnformattedDate () {
+        System.out.println("stringToDate");
+        String date = "19700101";
+        Date expResult = new Date(18000000);
+        Date result = DT.stringToUnformattedDate(date);
+        assertEquals(expResult, result);
+    }
+    
     /**
      * Test of stringToDate method, of class DT.
      */
