@@ -257,6 +257,8 @@ public final class Txt {
         return sb.toString();
     }
     /**
+     * Joins key=> value elements of a map into a string. NOTE: Must use <code>LinkedHashMap</code>
+     * if element order is important.
      * Join all elements of a <code>Map</code> into a <code>String</code>.
      * @param map
      * @return <code>String</code>

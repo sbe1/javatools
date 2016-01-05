@@ -5,11 +5,10 @@
  */
 package org.shawnewald.javatools;
 
-import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import junit.framework.TestCase;
 
 /**
@@ -151,14 +150,14 @@ public class TxtTest extends TestCase {
     /**
      * Test of join method, of class Txt.
      */
-    public void testJoin_3args () {
+    public void testJoin_Map_String () {
         System.out.println("join");
-        Map map = new HashMap();
+        Map map = new LinkedHashMap();
         map.put("a","b");
         map.put("c","d");
         String glue = "<->";
         String seperator = ":";
-        String expResult = "c:d<->a:b";
+        String expResult = "a:b<->c:d";
         String result = Txt.join(map, glue, seperator);
         assertEquals(expResult, result);
     }
