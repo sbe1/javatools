@@ -41,7 +41,7 @@ import org.apache.log4j.Logger;
  *
  */
 public final class JDBC {
-    private static Connection con;
+    private DataSource ds;
     private int resultLimit = 30;
     private int batchSize = 1000;
     private static final Logger LOG = Logger.getLogger(JDBC.class);
@@ -53,7 +53,8 @@ public final class JDBC {
      * datasource url.
      */
     public JDBC(final String connectionString) {
-        setConnection(connectionString);
+        try { ds = DataSource.getInstance(connectionString); }
+        catch (final Exception e) { throw new RuntimeException(e); }
     }
 
     /**
@@ -66,7 +67,8 @@ public final class JDBC {
      */
     public JDBC(final String connectionString, final int limit) {
         resultLimit = limit;
-        setConnection(connectionString);
+        try { ds = DataSource.getInstance(connectionString); }
+        catch (final Exception e) { throw new RuntimeException(e); }
     }
 
     /**
@@ -82,30 +84,17 @@ public final class JDBC {
             final int batchLimit) {
         resultLimit = limit;
         batchSize = batchLimit;
-        setConnection(connectionString);
+        try { ds = DataSource.getInstance(connectionString); }
+        catch (final Exception e) { throw new RuntimeException(e); }
     }
 
-    /**
-     * Sets the database connection.
-     *
-     * @return con  <code>java.sql.Connection</code>
-     */
-    private static void setConnection(final String connectionString) {
-        try {
-            con = DriverManager.getConnection(connectionString);
-        }
-        catch (final SQLException ex) {
-            LOG.error(ex.getMessage(),ex);
-            throw new RuntimeException(ex);
-        }
-    }
 
     /**
      * Closes the database connection.
      *
      * @param con  <code>java.sql.Connection</code>
      */
-    private static void closeConnection() {
+    private static void closeConnection(final Connection con) {
         try {
             if (con != null) {
                 con.close();
@@ -253,11 +242,12 @@ public final class JDBC {
      * @return result  <code>Object</code>
      */
     public Object getOne(final String query) {
-        //final Connection con = setConnection(this.connectionString);
         Statement stmt = null;
         ResultSet rs = null;
         Object result = null;
+        Connection con = null;
         try {
+            con = ds.getConnection();
             stmt = con.createStatement();
             rs = stmt.executeQuery(query);
             if (rs != null && rs.next()) {
@@ -271,6 +261,7 @@ public final class JDBC {
         finally {
             closeResultSet(rs);
             closeStatement(stmt);
+            closeConnection(con);
         }
         return result;
     }
@@ -284,11 +275,12 @@ public final class JDBC {
      * @return result  <code>java.lang.Object</code>
      */
     public Object getPreparedOne(final String query, final List<Object> values) {
-        //final Connection con = setConnection(this.connectionString);
         PreparedStatement stmt = null;
         ResultSet rs = null;
         Object result = null;
+        Connection con = null;
         try {
+            con = ds.getConnection();
             stmt = con.prepareStatement(query);
             setStatementValues(stmt, values);
             rs = stmt.executeQuery();
@@ -303,6 +295,7 @@ public final class JDBC {
         finally {
             closeResultSet(rs);
             closePreparedStatement(stmt);
+            closePreparedStatement(stmt);
         }
         return result;
     }
@@ -314,11 +307,12 @@ public final class JDBC {
      * @return result  <code>Map</code>
      */
     public Map<String, Object> getRow(final String query) {
-        //final Connection con = setConnection(this.connectionString);
         Statement stmt = null;
         ResultSet rs = null;
         final Map<String, Object> result = new HashMap<String, Object>();
+        Connection con = null;
         try {
+            con = ds.getConnection();
             stmt = con.createStatement();
             rs = stmt.executeQuery(query);
             if (rs != null && rs.next()) {
@@ -339,6 +333,7 @@ public final class JDBC {
         finally {
             closeResultSet(rs);
             closeStatement(stmt);
+            closeConnection(con);
         }
         return result;
     }
@@ -355,7 +350,9 @@ public final class JDBC {
         PreparedStatement stmt = null;
         ResultSet rs = null;
         final Map<String, Object> result = new HashMap<String, Object>();
+        Connection con = null;
         try {
+            con = ds.getConnection();
             stmt = con.prepareStatement(query);
             setStatementValues(stmt, values);
             rs = stmt.executeQuery();
@@ -377,6 +374,7 @@ public final class JDBC {
         finally {
             closeResultSet(rs);
             closePreparedStatement(stmt);
+            closeConnection(con);
         }
         return result;
     }
@@ -395,7 +393,9 @@ public final class JDBC {
         Statement stmt = null;
         ResultSet rs = null;
         final List<Object> list = new ArrayList<Object>();
+        Connection con = null;
         try {
+            con = ds.getConnection();
             stmt = con.createStatement();
             rs = stmt.executeQuery(query);
             if (rs != null && rs.isBeforeFirst()) {
@@ -411,6 +411,7 @@ public final class JDBC {
         finally {
             closeResultSet(rs);
             closeStatement(stmt);
+            closeConnection(con);
         }
         return list;
     }
@@ -444,7 +445,9 @@ public final class JDBC {
         Statement stmt = null;
         ResultSet rs = null;
         final Set<String> set = new HashSet<String>();
+        Connection con = null;
         try {
+            con = ds.getConnection();
             stmt = con.createStatement();
             rs = stmt.executeQuery(query);
             if (rs != null && rs.isBeforeFirst()) {
@@ -460,6 +463,7 @@ public final class JDBC {
         finally {
             closeResultSet(rs);
             closeStatement(stmt);
+            closeConnection(con);
         }
         return set;
     }
@@ -503,7 +507,9 @@ public final class JDBC {
     public void doVoidQuery(final String query) {
         //final Connection con = setConnection(this.connectionString);
         Statement stmt = null;
+        Connection con = null;
         try {
+            con = ds.getConnection();
             stmt = con.createStatement();
             stmt.executeUpdate(query);
         }
@@ -513,6 +519,7 @@ public final class JDBC {
         }
         finally {
             closeStatement(stmt);
+            closeConnection(con);
         }
     }
 
@@ -527,7 +534,9 @@ public final class JDBC {
             final List<Object> values) {
         //final Connection con = setConnection(this.connectionString);
         PreparedStatement stmt = null;
+        Connection con = null;
         try {
+            con = ds.getConnection();
             stmt = con.prepareStatement(query);
             setStatementValues(stmt, values);
             stmt.executeUpdate();
@@ -538,6 +547,7 @@ public final class JDBC {
         }
         finally {
             closePreparedStatement(stmt);
+            closeConnection(con);
         }
     }
 
@@ -555,7 +565,9 @@ public final class JDBC {
         Statement stmt = null;
         ResultSet rs = null;
         List<Map<String, Object>> result = null;
+        Connection con = null;
         try {
+            con = ds.getConnection();
             stmt = con.createStatement();
             rs = stmt.executeQuery(query);
             if (rs != null && rs.isBeforeFirst()) {
@@ -569,6 +581,7 @@ public final class JDBC {
         finally {
             closeResultSet(rs);
             closeStatement(stmt);
+            closeConnection(con);
         }
         return result;
     }
@@ -587,7 +600,9 @@ public final class JDBC {
         PreparedStatement stmt = null;
         ResultSet rs = null;
         List<Map<String, Object>> result = null;
+        Connection con = null;
         try {
+            con = ds.getConnection();
             stmt = con.prepareStatement(query);
             setStatementValues(stmt, values);
             rs = stmt.executeQuery();
@@ -602,6 +617,7 @@ public final class JDBC {
         finally {
             closeResultSet(rs);
             closePreparedStatement(stmt);
+            closeConnection(con);
         }
         return result;
     }
@@ -615,7 +631,9 @@ public final class JDBC {
         //final Connection con = setConnection(this.connectionString);
         Statement stmt = null;
         int count = 0;
+        Connection con = null;
         try {
+            con = ds.getConnection();
             stmt = con.createStatement();
             // if the batch has only one query, just do a Statement.executeUpdate
             // on that single query.
@@ -635,6 +653,7 @@ public final class JDBC {
         }
         finally {
             closeStatement(stmt);
+            closeConnection(con);
         }
     }
 
@@ -649,7 +668,9 @@ public final class JDBC {
         //final Connection con = setConnection(this.connectionString);
         PreparedStatement stmt = null;
         int count = 0;
+        Connection con = null;
         try {
+            con = ds.getConnection();
             stmt = con.prepareStatement(sql);
             for (final List<Object> values : batch) {
                 setStatementValues(stmt, values);
@@ -666,6 +687,7 @@ public final class JDBC {
         }
         finally {
             closePreparedStatement(stmt);
+            closeConnection(con);
         }
     }
 
@@ -829,8 +851,5 @@ public final class JDBC {
             LOG.error(e.getMessage(),e);
             LOG.error(litPreparedStatement + stmt);
         }
-    }
-    public void destroy () {
-        closeConnection();
     }
 }
