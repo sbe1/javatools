@@ -1,5 +1,6 @@
 package org.shawnewald.javatools;
 
+import com.mysql.jdbc.MysqlErrorNumbers;
 import java.sql.*;
 import java.util.*;
 import org.apache.log4j.Logger;
@@ -532,16 +533,30 @@ public final class JDBC {
      */
     public void doPreparedVoidQuery(final String query,
             final List<Object> values) {
-        //final Connection con = setConnection(this.connectionString);
         PreparedStatement stmt = null;
         Connection con = null;
         try {
-            con = ds.getConnection();
+            con = DataSource.getInstance().getConnection();
             stmt = con.prepareStatement(query);
             setStatementValues(stmt, values);
-            stmt.executeUpdate();
+            try { stmt.executeUpdate(); }
+            catch (final SQLException e) {
+                if (e.getErrorCode() == MysqlErrorNumbers.ER_LOCK_DEADLOCK) {
+                    closePreparedStatement(stmt);
+                    try { Thread.sleep(1000); }
+                    catch (final Exception ex) {
+                        LOG.error(ex.getMessage(),ex);
+                    }
+                    stmt = con.prepareStatement(query);
+                    setStatementValues(stmt, values);
+                    stmt.executeUpdate();
+                }
+                else {
+                    throw new RuntimeException(e);
+                }
+            }
         }
-        catch (final SQLException ex) {
+        catch (final Exception ex) {
             LOG.error(ex.getMessage(),ex);
             throw new RuntimeException(ex);
         }
