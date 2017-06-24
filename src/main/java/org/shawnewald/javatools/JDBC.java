@@ -536,7 +536,7 @@ public final class JDBC {
         PreparedStatement stmt = null;
         Connection con = null;
         try {
-            con = DataSource.getInstance().getConnection();
+            con = ds.getConnection();
             stmt = con.prepareStatement(query);
             setStatementValues(stmt, values);
             try { stmt.executeUpdate(); }
