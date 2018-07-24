@@ -37,10 +37,11 @@ public final class CookieTools {
      * @return cookie <code>Cookie</code>
      */
     public static Cookie createCookie (final String name, final String value) {
-            final Cookie cookie = new Cookie(name, value);
-            cookie.setPath(cookiePath);
-            cookie.setMaxAge(cookieAge);
-            return cookie;
+        final Cookie cookie = new Cookie(name, value);
+        cookie.setPath(cookiePath);
+        cookie.setMaxAge(cookieAge);
+        cookie.setHttpOnly(true);
+        return cookie;
     }
     /**
      * Create a cookie.
@@ -55,6 +56,7 @@ public final class CookieTools {
             cookie.setPath(cookiePath);
             cookie.setMaxAge(cookieAge);
             cookie.setDomain(domain);
+            cookie.setHttpOnly(true);
             return cookie;
     }
     /**
@@ -72,6 +74,57 @@ public final class CookieTools {
             cookie.setMaxAge(age);
             cookie.setPath(path);
             cookie.setDomain(domain);
+            cookie.setHttpOnly(true);
+            return cookie;
+    }
+    /**
+     * Create a secure cookie.
+     * @param name <code>String</code>
+     * @param value <code>String</code>
+     * @return cookie <code>Cookie</code>
+     */
+    public static Cookie createSecureCookie (final String name, final String value) {
+            final Cookie cookie = new Cookie(name, value);
+            cookie.setPath(cookiePath);
+            cookie.setMaxAge(cookieAge);
+            cookie.setHttpOnly(true);
+            cookie.setSecure(true);
+            return cookie;
+    }
+    /**
+     * Create a secure cookie.
+     * @param name <code>String</code>
+     * @param value <code>String</code>
+     * @param domain <code>String</code>
+     * @return cookie <code>Cookie</code>
+     */
+    public static Cookie createSecureCookie (final String name, final String value,
+            final String domain) {
+            final Cookie cookie = new Cookie(name, value);
+            cookie.setPath(cookiePath);
+            cookie.setMaxAge(cookieAge);
+            cookie.setDomain(domain);
+            cookie.setHttpOnly(true);
+            cookie.setSecure(true);
+            return cookie;
+    }
+    /**
+     * Create a secure cookie.
+     * @param name <code>String</code>
+     * @param value <code>String</code>
+     * @param age <code>int</code>
+     * @param path <code>String</code>
+     * @param domain <code>String</code>
+     * @return cookie <code>Cookie</code>
+     */
+    public static Cookie createSecureCookie (final String name, final String value,
+            final int age, final String path, final String domain) {
+            final Cookie cookie = new Cookie(name, value);
+            cookie.setMaxAge(age);
+            cookie.setPath(path);
+            cookie.setDomain(domain);
+            cookie.setHttpOnly(true);
+            cookie.setSecure(true);
             return cookie;
     }
     /**
@@ -125,6 +178,7 @@ public final class CookieTools {
         cookie.setPath(cookiePath);
         cookie.setMaxAge(cookieAge);
         cookie.setValue(cookieValue);
+        cookie.setHttpOnly(true);
         return cookie;
 
     }
@@ -144,6 +198,7 @@ public final class CookieTools {
         cookie.setMaxAge(cookieAge);
         cookie.setValue(cookieValue);
         cookie.setDomain(cookieDomain);
+        cookie.setHttpOnly(true);
         return cookie;
     }
     /**
@@ -165,6 +220,68 @@ public final class CookieTools {
         cookie.setMaxAge(cookieAge);
         cookie.setPath(cookiePath);
         cookie.setDomain(cookieDomain);
+        cookie.setHttpOnly(true);
+        return cookie;
+    }
+    /**
+     * Updates a secure cookie's value.
+     * @param cookies <code>C1ookie[]</code>, cookie array.
+     * @param cookieName <code>String</code>, cookie name.
+     * @param cookieValue <code>String</code>, cookie value.
+     * @return cookie <code>Cookie</code>
+     */
+    public static Cookie updateSecureCookie (final Cookie[] cookies,
+            final String cookieName, final String cookieValue) {
+        final Cookie cookie = cookieFindByName(cookies, cookieName);
+        cookie.setPath(cookiePath);
+        cookie.setMaxAge(cookieAge);
+        cookie.setValue(cookieValue);
+        cookie.setHttpOnly(true);
+        cookie.setSecure(true);
+        return cookie;
+
+    }
+    /**
+     * Updates a secure cookie's value.
+     * @param cookies <code>Cookie[]</code>, cookie array.
+     * @param cookieName <code>String</code>, cookie name.
+     * @param cookieValue <code>String</code>, cookie value.
+     * @param cookieDomain <code>String</code>, cookie domain.
+     * @return cookie <code>Cookie</code>
+     */
+    public static Cookie updateSecureCookie (final Cookie[] cookies,
+            final String cookieName, final String cookieValue,
+            final String cookieDomain) {
+        final Cookie cookie = cookieFindByName(cookies, cookieName);
+        cookie.setPath(cookiePath);
+        cookie.setMaxAge(cookieAge);
+        cookie.setValue(cookieValue);
+        cookie.setDomain(cookieDomain);
+        cookie.setHttpOnly(true);
+        cookie.setSecure(true);
+        return cookie;
+    }
+    /**
+     * Updates a secure cookie's value.
+     * @param cookies <code>Cookie[]</code>, cookie arrray.
+     * @param cookieName <code>String</code>, cookie name.
+     * @param cookieValue <code>String</code>, cookie value.
+     * @param cookieAge <code>int</code>, age of cookie in seconds.
+     * @param cookiePath <code>String</code>, cookie url path.
+     * @param cookieDomain <code>String</code>, cookie domain.
+     * @return cookie <code>Cookie</code>
+     */
+    public static Cookie updateSecureCookie (final Cookie[] cookies,
+            final String cookieName, final String cookieValue,
+            final int cookieAge, final String cookiePath,
+            final String cookieDomain) {
+        final Cookie cookie = cookieFindByName(cookies, cookieName);
+        cookie.setValue(cookieValue);
+        cookie.setMaxAge(cookieAge);
+        cookie.setPath(cookiePath);
+        cookie.setDomain(cookieDomain);
+        cookie.setHttpOnly(true);
+        cookie.setSecure(true);
         return cookie;
     }
     /**

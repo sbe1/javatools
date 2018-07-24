@@ -32,6 +32,110 @@ public final class DT {
     public static enum DateRange {
         DAY7, DAY14, DAY28, DAY30, DAY60, DAY90
     };
+    private static final List<String> STRING_FORMATS = new ArrayList<String>() {
+        {
+            add("yyyyMMdd");                     // Unformatted (big endian) date. Ex: 19690819
+            add("yyyyMMddHHmm");                 // Unformated (big endian) date and time, minus seconds. Ex: 196908190100
+            add("yyyyMMddHHmmss");               // Unformatted (big endian) date and time. Ex: 19690819010000
+            add("yyyyMMdd HHmm");                // Unformated (big endian) date and time, minus seconds, time separated by space. Ex: 19690819 0100
+            add("yyyyMMdd HHmmss");              // Unformated (big endian) date and time, time separated by space, with seconds. Ex: 19690819 010000
+            add("dd.MM.yyyy");                   // Global Standard (little endian) date format, with dots. Ex: 19.08.1969
+            add("yyyy");                         // 4 digit year. Ex: 1969
+            add("dd/MM/yyyy");                   // Global Standard (little endian) date format, with slashes. Ex: 19/08/1969
+            add("dd-MM-yyyy");                   // Global Standard (little endian) date format, with dashes. Ex: 19-08-1969
+            add("yyyy/MM/dd");                   // Formatted China/Japan/Database (big endian) date with slashes. Ex: 1969/08/19
+            add("yyyy-MM-dd");                   // Formatted China/Japan/Database (big endian) date with dashes. Ex: 1969-08-19
+            add("dd MMM yyyy");                  // Formatted middle endian with text month. Ex: 19 Aug 1969
+            add("dd MMMM yyyy");                 // Formatted middle endian with text month. Ex: 19 August 1969
+            add("dd-MM-yyyy HH:mm");             // Little endian date and time. Ex: 19-08-1969 01:00
+            add("yyyy-MM-dd HH:mm");             // Big endian date and time with dashes. Ex: 1969-08-19 01:00
+            add("yyyy/MM/dd HH:mm");             // Big endian date and time with slashes. Ex: 1969/08/19 01:00
+            add("MM/dd/yyyy HH:mm");             // Middle endian date and time with slashes. Ex: 19/08/1969 01:00
+            add("dd MMM yyyy HH:mm");            // Little endian date and time with text month. Ex: 19 Aug 1969 01:00
+            add("dd MMMM yyyy HH:mm");           // Little endian date and time with text month. Ex: 19 August 1969 01:00
+            add("dd-MM-yyyy HH:mm:ss");          // Little endian date and time with seconds. Ex: 19-08-1969 01:00:00
+            add("yyyy-MM-dd HH:mm:ss");          // Big endian date and time with seconds. Ex: 1969-08-19 01:00:00
+            add("yyyy/MM/dd HH:mm:ss");          // Big endian date and time with seconds, with slashes. Ex: 1969/08/19 01:00:00
+            add("MM/dd/yyyy HH:mm:ss");          // Middle endian date and time with seconds, with slashes. Ex: 08/19/1969 01:00:00
+            add("dd MMM yyyy HH:mm:ss");         // Little endian date and time with text month and seconds. Ex: 19 Aug 1969 01:00:00
+            add("dd MMMM yyyy HH:mm:ss");        // Little endian date and time with text month and seconds. Ex: 19 August 1969 01:00:00
+            add("MMMM d, yyyy");                 // Middle endian date with text month. Ex: August 19, 1969
+            add("EEE, dd MMM yyyy HH:mm:ss Z");  // RFC 822 date and time. Ex: Wed, 04 Mar 2015 07:46:00 -0500
+            add("yyyy-MM-dd'T'HH:mm:ss'Z'");     // ISO date and time. Ex: 2015-03-04T07:46:00Z
+            add("yyyy-MM-dd'T'HH:mm:ss");        // ISO alternate format date and time. Ex: 2015-03-04T07:46:00
+            add("EEE MMM dd HH:mm:ss ZZZ yyyy"); // Twitter API date format. Ex: Wed Mar 04 07:46:00 EST 2015
+        }
+    };
+    private static final Map<String, SimpleDateFormat> DATE_FORMATTERS = new HashMap<String, SimpleDateFormat>() {
+        {
+            put(STRING_FORMATS.get(0), new SimpleDateFormat(STRING_FORMATS.get(0)));
+            put(STRING_FORMATS.get(1), new SimpleDateFormat(STRING_FORMATS.get(1)));
+            put(STRING_FORMATS.get(2), new SimpleDateFormat(STRING_FORMATS.get(2)));
+            put(STRING_FORMATS.get(3), new SimpleDateFormat(STRING_FORMATS.get(3)));
+            put(STRING_FORMATS.get(4), new SimpleDateFormat(STRING_FORMATS.get(4)));
+            put(STRING_FORMATS.get(5), new SimpleDateFormat(STRING_FORMATS.get(5)));
+            put(STRING_FORMATS.get(6), new SimpleDateFormat(STRING_FORMATS.get(6)));
+            put(STRING_FORMATS.get(7), new SimpleDateFormat(STRING_FORMATS.get(7)));
+            put(STRING_FORMATS.get(8), new SimpleDateFormat(STRING_FORMATS.get(8)));
+            put(STRING_FORMATS.get(9), new SimpleDateFormat(STRING_FORMATS.get(9)));
+            put(STRING_FORMATS.get(10), new SimpleDateFormat(STRING_FORMATS.get(10)));
+            put(STRING_FORMATS.get(11), new SimpleDateFormat(STRING_FORMATS.get(11)));
+            put(STRING_FORMATS.get(12), new SimpleDateFormat(STRING_FORMATS.get(12)));
+            put(STRING_FORMATS.get(13), new SimpleDateFormat(STRING_FORMATS.get(13)));
+            put(STRING_FORMATS.get(14), new SimpleDateFormat(STRING_FORMATS.get(14)));
+            put(STRING_FORMATS.get(15), new SimpleDateFormat(STRING_FORMATS.get(15)));
+            put(STRING_FORMATS.get(16), new SimpleDateFormat(STRING_FORMATS.get(16)));
+            put(STRING_FORMATS.get(17), new SimpleDateFormat(STRING_FORMATS.get(17)));
+            put(STRING_FORMATS.get(18), new SimpleDateFormat(STRING_FORMATS.get(18)));
+            put(STRING_FORMATS.get(19), new SimpleDateFormat(STRING_FORMATS.get(19)));
+            put(STRING_FORMATS.get(20), new SimpleDateFormat(STRING_FORMATS.get(20)));
+            put(STRING_FORMATS.get(21), new SimpleDateFormat(STRING_FORMATS.get(21)));
+            put(STRING_FORMATS.get(22), new SimpleDateFormat(STRING_FORMATS.get(22)));
+            put(STRING_FORMATS.get(23), new SimpleDateFormat(STRING_FORMATS.get(23)));
+            put(STRING_FORMATS.get(24), new SimpleDateFormat(STRING_FORMATS.get(24)));
+            put(STRING_FORMATS.get(25), new SimpleDateFormat(STRING_FORMATS.get(25), Locale.getDefault()));
+            put(STRING_FORMATS.get(26), new SimpleDateFormat(STRING_FORMATS.get(26), Locale.getDefault()));
+            put(STRING_FORMATS.get(27), new SimpleDateFormat(STRING_FORMATS.get(27), Locale.getDefault()));
+            put(STRING_FORMATS.get(28), new SimpleDateFormat(STRING_FORMATS.get(28), Locale.getDefault()));
+            put(STRING_FORMATS.get(29), new SimpleDateFormat(STRING_FORMATS.get(29), Locale.getDefault()));      
+        }
+    };
+    private static final Map<String, String> DATE_FORMAT_REGEXPS = new HashMap<String, String>() {
+        {
+            put("^\\d{8}$", STRING_FORMATS.get(0));
+            put("^\\d{12}$", STRING_FORMATS.get(1));
+            put("^\\d{14}$", STRING_FORMATS.get(2));
+            put("^\\d{8}\\s\\d{4}$", STRING_FORMATS.get(3));
+            put("^\\d{8}\\s\\d{6}$", STRING_FORMATS.get(4));
+            put("^\\d{1,2}.\\d{1,2}.\\d{4}$", STRING_FORMATS.get(5));
+            put("^\\d{4}$", STRING_FORMATS.get(6));
+            put("^\\d{1,2}/\\d{1,2}/\\d{4}$", STRING_FORMATS.get(7));
+            put("^\\d{1,2}-\\d{1,2}-\\d{4}$", STRING_FORMATS.get(8));
+            put("^\\d{4}/\\d{1,2}/\\d{1,2}$", STRING_FORMATS.get(9));
+            put("^\\d{4}-\\d{1,2}-\\d{1,2}$", STRING_FORMATS.get(10));
+            put("^\\d{1,2}\\s[a-z]{3}\\s\\d{4}$", STRING_FORMATS.get(11));
+            put("^\\d{1,2}\\s[a-z]{4,}\\s\\d{4}$", STRING_FORMATS.get(12));
+            put("^\\d{1,2}-\\d{1,2}-\\d{4}\\s\\d{1,2}:\\d{2}$", STRING_FORMATS.get(13));
+            put("^\\d{4}-\\d{1,2}-\\d{1,2}\\s\\d{1,2}:\\d{2}$", STRING_FORMATS.get(14));
+            put("^\\d{4}/\\d{1,2}/\\d{1,2}\\s\\d{1,2}:\\d{2}$", STRING_FORMATS.get(15));
+            put("^\\d{1,2}/\\d{1,2}/\\d{4}\\s\\d{1,2}:\\d{2}$", STRING_FORMATS.get(16));
+            put("^\\d{1,2}\\s[a-z]{3}\\s\\d{4}\\s\\d{1,2}:\\d{2}$", STRING_FORMATS.get(17));
+            put("^\\d{1,2}\\s[a-z]{4,}\\s\\d{4}\\s\\d{1,2}:\\d{2}$", STRING_FORMATS.get(18));
+            put("^\\d{1,2}-\\d{1,2}-\\d{4}\\s\\d{1,2}:\\d{2}:\\d{2}$", STRING_FORMATS.get(19));
+            put("^\\d{4}-\\d{1,2}-\\d{1,2}\\s\\d{1,2}:\\d{2}:\\d{2}$", STRING_FORMATS.get(20));
+            put("^\\d{4}/\\d{1,2}/\\d{1,2}\\s\\d{1,2}:\\d{2}:\\d{2}$", STRING_FORMATS.get(21));
+            put("^\\d{1,2}/\\d{1,2}/\\d{4}\\s\\d{1,2}:\\d{2}:\\d{2}$", STRING_FORMATS.get(22));
+            put("^\\d{1,2}\\s[a-z]{3}\\s\\d{4}\\s\\d{1,2}:\\d{2}:\\d{2}$", STRING_FORMATS.get(23));
+            put("^\\d{1,2}\\s[a-z]{4,}\\s\\d{4}\\s\\d{1,2}:\\d{2}:\\d{2}$", STRING_FORMATS.get(24));
+            put("^[a-z]{3,}\\s\\d{1,2}\\,\\s\\d{4}$", STRING_FORMATS.get(25));
+            put("^[a-z]{3,}\\,\\s\\d{2}\\s[a-z]{3,}\\s\\d{4}\\s\\d{1,2}:\\d{2}:\\d{2}\\s-\\d{4}", STRING_FORMATS.get(26));
+            put("^[a-z]{3,}\\,\\s\\d{2}\\s[a-z]{3,}\\s\\d{4}\\s\\d{1,2}:\\d{2}:\\d{2}\\s[a-z]{3,}", STRING_FORMATS.get(26));
+            put("^\\d{4}-\\d{1,2}-\\d{1,2}T\\d{2}:\\d{2}:\\d{2}Z", STRING_FORMATS.get(27));
+            put("^\\d{4}-\\d{1,2}-\\d{1,2}T\\d{2}:\\d{2}:\\d{2}", STRING_FORMATS.get(28));
+            put("^[a-z]{3}\\s[a-z]{3}\\s\\d{1,2}\\s\\d{1,2}:\\d{2}:\\d{2}\\s[a-z]{3,}\\s\\d{4}", STRING_FORMATS.get(29));
+            put("^[a-z]{3,}\\s[a-z]{3,}\\s\\d{2}\\s\\d{1,2}:\\d{2}:\\d{2}\\s[\\-\\+]{0,1}[0-9]{4}\\s\\d{4}", STRING_FORMATS.get(29));
+        }
+    };
     private static final SimpleDateFormat ufd = new SimpleDateFormat("yyyyMMdd");
     private static final SimpleDateFormat fdt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     private static final SimpleDateFormat fd = new SimpleDateFormat("yyyy-MM-dd");
@@ -128,6 +232,10 @@ public final class DT {
         return twd.format(date);
     }
 
+    public static String formatMiddleEndianDate (final Date date) {
+        return med.format(date);
+    }
+    
      /**
      * Convert <code>String</code> (<code>yyyyMMdd</code>) representation of a date to a
      * <code>Date</code>.
