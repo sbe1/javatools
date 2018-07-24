@@ -144,6 +144,7 @@ public final class DT {
     private static final SimpleDateFormat iso = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.ENGLISH);
     private static final SimpleDateFormat isoAlt = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.ENGLISH);
     private static final SimpleDateFormat twd = new SimpleDateFormat("EEE MMM dd HH:mm:ss ZZZZZ yyyy", Locale.ENGLISH);
+    private static final SimpleDateFormat med = new SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH);
 
     private DT() {
     }
