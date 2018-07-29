@@ -174,7 +174,10 @@ public final class CookieTools {
      */
     public static Cookie updateCookie (final Cookie[] cookies,
             final String cookieName, final String cookieValue) {
-        final Cookie cookie = cookieFindByName(cookies, cookieName);
+        Cookie cookie = cookieFindByName(cookies, cookieName);
+        if (cookieIsNullOrEmpty(cookie)) {
+            cookie = new Cookie(cookieName, cookieValue);
+        } 
         cookie.setPath(cookiePath);
         cookie.setMaxAge(cookieAge);
         cookie.setValue(cookieValue);
@@ -193,7 +196,10 @@ public final class CookieTools {
     public static Cookie updateCookie (final Cookie[] cookies,
             final String cookieName, final String cookieValue,
             final String cookieDomain) {
-        final Cookie cookie = cookieFindByName(cookies, cookieName);
+        Cookie cookie = cookieFindByName(cookies, cookieName);
+        if (cookieIsNullOrEmpty(cookie)) {
+            cookie = new Cookie(cookieName, cookieValue);
+        } 
         cookie.setPath(cookiePath);
         cookie.setMaxAge(cookieAge);
         cookie.setValue(cookieValue);
@@ -215,7 +221,10 @@ public final class CookieTools {
             final String cookieName, final String cookieValue,
             final int cookieAge, final String cookiePath,
             final String cookieDomain) {
-        final Cookie cookie = cookieFindByName(cookies, cookieName);
+        Cookie cookie = cookieFindByName(cookies, cookieName);
+        if (cookieIsNullOrEmpty(cookie)) {
+            cookie = new Cookie(cookieName, cookieValue);
+        } 
         cookie.setValue(cookieValue);
         cookie.setMaxAge(cookieAge);
         cookie.setPath(cookiePath);
@@ -232,7 +241,10 @@ public final class CookieTools {
      */
     public static Cookie updateSecureCookie (final Cookie[] cookies,
             final String cookieName, final String cookieValue) {
-        final Cookie cookie = cookieFindByName(cookies, cookieName);
+        Cookie cookie = cookieFindByName(cookies, cookieName);
+        if (cookieIsNullOrEmpty(cookie)) {
+            cookie = new Cookie(cookieName, cookieValue);
+        } 
         cookie.setPath(cookiePath);
         cookie.setMaxAge(cookieAge);
         cookie.setValue(cookieValue);
@@ -252,7 +264,10 @@ public final class CookieTools {
     public static Cookie updateSecureCookie (final Cookie[] cookies,
             final String cookieName, final String cookieValue,
             final String cookieDomain) {
-        final Cookie cookie = cookieFindByName(cookies, cookieName);
+        Cookie cookie = cookieFindByName(cookies, cookieName);
+        if (cookieIsNullOrEmpty(cookie)) {
+            cookie = new Cookie(cookieName, cookieValue);
+        } 
         cookie.setPath(cookiePath);
         cookie.setMaxAge(cookieAge);
         cookie.setValue(cookieValue);
@@ -275,7 +290,10 @@ public final class CookieTools {
             final String cookieName, final String cookieValue,
             final int cookieAge, final String cookiePath,
             final String cookieDomain) {
-        final Cookie cookie = cookieFindByName(cookies, cookieName);
+        Cookie cookie = cookieFindByName(cookies, cookieName);
+        if (cookieIsNullOrEmpty(cookie)) {
+            cookie = new Cookie(cookieName, cookieValue);
+        } 
         cookie.setValue(cookieValue);
         cookie.setMaxAge(cookieAge);
         cookie.setPath(cookiePath);
