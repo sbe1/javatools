@@ -5,11 +5,26 @@
  */
 package org.shawnewald.javatools;
 
+import static java.lang.System.out;
 import java.util.Map;
 import java.util.HashMap;
 import javax.servlet.http.Cookie;
 import junit.framework.Assert;
 import junit.framework.TestCase;
+import static org.shawnewald.javatools.CookieTools.cookieExists;
+import static org.shawnewald.javatools.CookieTools.cookieIsNullOrEmpty;
+import static org.shawnewald.javatools.CookieTools.cookieMap;
+import static org.shawnewald.javatools.CookieTools.createCookie;
+import static org.shawnewald.javatools.CookieTools.createCookie;
+import static org.shawnewald.javatools.CookieTools.createCookie;
+import static org.shawnewald.javatools.CookieTools.deleteCookie;
+import static org.shawnewald.javatools.CookieTools.deleteCookie;
+import static org.shawnewald.javatools.CookieTools.deleteCookie;
+import static org.shawnewald.javatools.CookieTools.getCookie;
+import static org.shawnewald.javatools.CookieTools.getCookieValue;
+import static org.shawnewald.javatools.CookieTools.updateCookie;
+import static org.shawnewald.javatools.CookieTools.updateCookie;
+import static org.shawnewald.javatools.CookieTools.updateCookie;
 
 /**
  *
@@ -35,37 +50,37 @@ public class CookieToolsTest extends TestCase {
      * Test of createCookie method, of class CookieTools.
      */
     public void testCreateCookie_String_String () {
-        System.out.println("createCookie");
+        out.println("createCookie");
         String name = "Foo";
         String value = "Bar";
         Cookie expResult = new Cookie(name, value);
         expResult.setPath("/");
-        expResult.setMaxAge(((Integer)31536000).intValue());
-        Cookie result = CookieTools.createCookie(name, value);
-        Assert.assertTrue((expResult.getName().equals(result.getName()) && expResult.getValue().equals(result.getValue()) && (expResult.getMaxAge() == result.getMaxAge()) && expResult.getPath().equals(result.getPath()) && expResult.getDomain() == result.getDomain()));
+        expResult.setMaxAge(((Integer)31536000));
+        Cookie result = createCookie(name, value);
+        assertTrue((expResult.getName().equals(result.getName()) && expResult.getValue().equals(result.getValue()) && (expResult.getMaxAge() == result.getMaxAge()) && expResult.getPath().equals(result.getPath()) && expResult.getDomain() == result.getDomain()));
     }
 
     /**
      * Test of createCookie method, of class CookieTools.
      */
     public void testCreateCookie_3args () {
-        System.out.println("createCookie");
+        out.println("createCookie");
         String name = "Foo";
         String value = "Bar";
         String domain = "example.org";
         Cookie expResult = new Cookie(name, value);
         expResult.setPath("/");
-        expResult.setMaxAge(((Integer)31536000).intValue());
+        expResult.setMaxAge(((Integer)31536000));
         expResult.setDomain(domain);
-        Cookie result = CookieTools.createCookie(name, value, domain);
-        Assert.assertTrue((expResult.getName().equals(result.getName()) && expResult.getValue().equals(result.getValue()) && (expResult.getMaxAge() == result.getMaxAge()) && expResult.getPath().equals(result.getPath()) && expResult.getDomain() == result.getDomain()));
+        Cookie result = createCookie(name, value, domain);
+        assertTrue((expResult.getName().equals(result.getName()) && expResult.getValue().equals(result.getValue()) && (expResult.getMaxAge() == result.getMaxAge()) && expResult.getPath().equals(result.getPath()) && expResult.getDomain() == result.getDomain()));
     }
 
     /**
      * Test of createCookie method, of class CookieTools.
      */
     public void testCreateCookie_5args () {
-        System.out.println("createCookie");
+        out.println("createCookie");
         String name = "Foo";
         String value = "Bar";
         int age = 10000;
@@ -75,85 +90,85 @@ public class CookieToolsTest extends TestCase {
         expResult.setMaxAge(age);
         expResult.setPath(path);
         expResult.setDomain(domain);
-        Cookie result = CookieTools.createCookie(name, value, age, path, domain);
-        Assert.assertTrue((expResult.getName().equals(result.getName()) && expResult.getValue().equals(result.getValue()) && (expResult.getMaxAge() == result.getMaxAge()) && expResult.getPath().equals(result.getPath()) && expResult.getDomain() == result.getDomain()));
+        Cookie result = createCookie(name, value, age, path, domain);
+        assertTrue((expResult.getName().equals(result.getName()) && expResult.getValue().equals(result.getValue()) && (expResult.getMaxAge() == result.getMaxAge()) && expResult.getPath().equals(result.getPath()) && expResult.getDomain() == result.getDomain()));
     }
 
     /**
      * Test of getCookieValue method, of class CookieTools.
      */
     public void testGetCookieValue () {
-        System.out.println("getCookieValue");
+        out.println("getCookieValue");
         Cookie[] cookies = new Cookie[]{new Cookie("Foo", "Bar")};
         String cookieName = "Foo";
         String expResult = "Bar";
-        String result = CookieTools.getCookieValue(cookies, cookieName);
-        Assert.assertEquals(expResult, result);
+        String result = getCookieValue(cookies, cookieName);
+        assertEquals(expResult, result);
     }
 
     /**
      * Test of getCookie method, of class CookieTools.
      */
     public void testGetCookie () {
-        System.out.println("getCookie");
+        out.println("getCookie");
         Cookie[] cookies = new Cookie[]{new Cookie("Foo", "Bar")};
         String cookieName = "Foo";
         Cookie expResult = cookies[0];
         expResult.setPath("/");
-        expResult.setMaxAge(((Integer)31536000).intValue());
-        Cookie result = CookieTools.getCookie(cookies, cookieName);
-        Assert.assertTrue((expResult.getName().equals(result.getName()) && expResult.getValue().equals(result.getValue()) && (expResult.getMaxAge() == result.getMaxAge()) && expResult.getPath().equals(result.getPath()) && expResult.getDomain() == result.getDomain()));
+        expResult.setMaxAge(((Integer)31536000));
+        Cookie result = getCookie(cookies, cookieName);
+        assertTrue((expResult.getName().equals(result.getName()) && expResult.getValue().equals(result.getValue()) && (expResult.getMaxAge() == result.getMaxAge()) && expResult.getPath().equals(result.getPath()) && expResult.getDomain() == result.getDomain()));
     }
 
     /**
      * Test of cookieMap method, of class CookieTools.
      */
     public void testCookieMap () {
-        System.out.println("cookieMap");
+        out.println("cookieMap");
         Cookie[] cookies = new Cookie[]{new Cookie("Foo", "Bar")};
-        Map<String, String> expResult = new HashMap<String,String>();
+        Map<String, String> expResult = new HashMap<>();
         expResult.put("Foo", "Bar");
-        Map<String, String> result = CookieTools.cookieMap(cookies);
-        Assert.assertEquals(expResult, result);
+        Map<String, String> result = cookieMap(cookies);
+        assertEquals(expResult, result);
     }
 
     /**
      * Test of updateCookie method, of class CookieToo:ls.
      */
     public void testUpdateCookie_3args () {
-        System.out.println("updateCookie");
+        out.println("updateCookie");
         Cookie[] cookies = new Cookie[]{new Cookie("Foo", "")};
         String cookieName = "Foo";
         String cookieValue = "Bar";
         Cookie expResult = new Cookie("Foo", "Bar");
         expResult.setPath("/");
-        expResult.setMaxAge(((Integer)31536000).intValue());
-        Cookie result = CookieTools.updateCookie(cookies, cookieName, cookieValue);
-        Assert.assertTrue((expResult.getName().equals(result.getName()) && expResult.getValue().equals(result.getValue()) && (expResult.getMaxAge() == result.getMaxAge()) && expResult.getPath().equals(result.getPath()) && expResult.getDomain() == result.getDomain()));
+        expResult.setMaxAge(((Integer)31536000));
+        Cookie result = updateCookie(cookies, cookieName, cookieValue);
+        assertTrue((expResult.getName().equals(result.getName()) && expResult.getValue().equals(result.getValue()) && (expResult.getMaxAge() == result.getMaxAge()) && expResult.getPath().equals(result.getPath()) && expResult.getDomain() == result.getDomain()));
     }
 
     /**
      * Test of updateCookie method, of class CookieTools.
      */
     public void testUpdateCookie_4args () {
-        System.out.println("updateCookie");
+        out.println("updateCookie");
         Cookie[] cookies = new Cookie[]{new Cookie("Foo", "")};
         String cookieName = "Foo";
         String cookieValue = "Bar";
         String cookieDomain = "example.org";
         Cookie expResult = new Cookie(cookieName, cookieValue);
         expResult.setPath("/");
-        expResult.setMaxAge(((Integer)31536000).intValue());
+        expResult.setMaxAge(((Integer)31536000));
         expResult.setDomain(cookieDomain);
-        Cookie result = CookieTools.updateCookie(cookies, cookieName, cookieValue, cookieDomain);
-        Assert.assertTrue((expResult.getName().equals(result.getName()) && expResult.getValue().equals(result.getValue()) && (expResult.getMaxAge() == result.getMaxAge()) && expResult.getPath().equals(result.getPath()) && expResult.getDomain() == result.getDomain()));
+        Cookie result = updateCookie(cookies, cookieName, cookieValue, cookieDomain);
+        assertTrue((expResult.getName().equals(result.getName()) && expResult.getValue().equals(result.getValue()) && (expResult.getMaxAge() == result.getMaxAge()) && expResult.getPath().equals(result.getPath()) && expResult.getDomain() == result.getDomain()));
     }
 
     /**
      * Test of updateCookie method, of class CookieTools.
      */
     public void testUpdateCookie_6args () {
-        System.out.println("updateCookie");
+        out.println("updateCookie");
         Cookie[] cookies = new Cookie[]{new Cookie("Foo", "")};
         String cookieName = "Foo";
         String cookieValue = "Bar";
@@ -164,43 +179,43 @@ public class CookieToolsTest extends TestCase {
         expResult.setMaxAge(cookieAge);
         expResult.setPath(cookiePath);
         expResult.setDomain(cookieDomain);
-        Cookie result = CookieTools.updateCookie(cookies, cookieName, cookieValue, cookieAge, cookiePath, cookieDomain);
-        Assert.assertTrue((expResult.getName().equals(result.getName()) && expResult.getValue().equals(result.getValue()) && (expResult.getMaxAge() == result.getMaxAge()) && expResult.getPath().equals(result.getPath()) && expResult.getDomain() == result.getDomain()));
+        Cookie result = updateCookie(cookies, cookieName, cookieValue, cookieAge, cookiePath, cookieDomain);
+        assertTrue((expResult.getName().equals(result.getName()) && expResult.getValue().equals(result.getValue()) && (expResult.getMaxAge() == result.getMaxAge()) && expResult.getPath().equals(result.getPath()) && expResult.getDomain() == result.getDomain()));
     }
 
     /**
      * Test of deleteCookie method, of class CookieTools.
      */
     public void testDeleteCookie_String () {
-        System.out.println("deleteCookie");
+        out.println("deleteCookie");
         String cookiename = "Foo";
         Cookie expResult = new Cookie("Foo", "");
         expResult.setPath("/");
         expResult.setMaxAge(0);
-        Cookie result = CookieTools.deleteCookie(cookiename);
-        Assert.assertTrue((expResult.getName().equals(result.getName()) && expResult.getValue().equals(result.getValue()) && (expResult.getMaxAge() == result.getMaxAge()) && expResult.getPath().equals(result.getPath()) && expResult.getDomain() == result.getDomain()));
+        Cookie result = deleteCookie(cookiename);
+        assertTrue((expResult.getName().equals(result.getName()) && expResult.getValue().equals(result.getValue()) && (expResult.getMaxAge() == result.getMaxAge()) && expResult.getPath().equals(result.getPath()) && expResult.getDomain() == result.getDomain()));
     }
 
     /**
      * Test of deleteCookie method, of class CookieTools.
      */
     public void testDeleteCookie_String_String () {
-        System.out.println("deleteCookie");
+        out.println("deleteCookie");
         String cookiename = "Foo";
         String cookieDomain = "example.org";
         Cookie expResult = new Cookie(cookiename, "");
         expResult.setDomain(cookieDomain);
         expResult.setPath("/");
         expResult.setMaxAge(0);
-        Cookie result = CookieTools.deleteCookie(cookiename, cookieDomain);
-        Assert.assertTrue((expResult.getName().equals(result.getName()) && expResult.getValue().equals(result.getValue()) && (expResult.getMaxAge() == result.getMaxAge()) && expResult.getPath().equals(result.getPath()) && expResult.getDomain() == result.getDomain()));
+        Cookie result = deleteCookie(cookiename, cookieDomain);
+        assertTrue((expResult.getName().equals(result.getName()) && expResult.getValue().equals(result.getValue()) && (expResult.getMaxAge() == result.getMaxAge()) && expResult.getPath().equals(result.getPath()) && expResult.getDomain() == result.getDomain()));
     }
 
     /**
      * Test of deleteCookie method, of class CookieTools.
      */
     public void testDeleteCookie_3args () {
-        System.out.println("deleteCookie");
+        out.println("deleteCookie");
         String cookiename = "Foo";
         String cookieDomain = "example.org";
         String cpath = "/";
@@ -208,31 +223,31 @@ public class CookieToolsTest extends TestCase {
         expResult.setPath(cpath);
         expResult.setMaxAge(0);
         expResult.setDomain(cookieDomain);
-        Cookie result = CookieTools.deleteCookie(cookiename, cookieDomain, cpath);
-        Assert.assertTrue((expResult.getName().equals(result.getName()) && expResult.getValue().equals(result.getValue()) && (expResult.getMaxAge() == result.getMaxAge()) && expResult.getPath().equals(result.getPath()) && expResult.getDomain() == result.getDomain()));
+        Cookie result = deleteCookie(cookiename, cookieDomain, cpath);
+        assertTrue((expResult.getName().equals(result.getName()) && expResult.getValue().equals(result.getValue()) && (expResult.getMaxAge() == result.getMaxAge()) && expResult.getPath().equals(result.getPath()) && expResult.getDomain() == result.getDomain()));
     }
 
     /**
      * Test of cookieExists method, of class CookieTools.
      */
     public void testCookieExists () {
-        System.out.println("cookieExists");
+        out.println("cookieExists");
         Cookie[] cookies = new Cookie[]{new Cookie("Foo", "")};
         String cookieName = "Foo";
         Boolean expResult = true;
-        Boolean result = CookieTools.cookieExists(cookies, cookieName);
-        Assert.assertEquals(expResult, result);
+        Boolean result = cookieExists(cookies, cookieName);
+        assertEquals(expResult, result);
     }
 
     /**
      * Test of cookieIsNullOrEmpty method, of class CookieTools.
      */
     public void testCookieIsNullOrEmpty () {
-        System.out.println("cookieIsNullOrEmpty");
+        out.println("cookieIsNullOrEmpty");
         Cookie cookie = new Cookie("Foo", "");
         Boolean expResult = true;
-        Boolean result = CookieTools.cookieIsNullOrEmpty(cookie);
-        Assert.assertEquals(expResult, result);
+        Boolean result = cookieIsNullOrEmpty(cookie);
+        assertEquals(expResult, result);
     }
     
 }

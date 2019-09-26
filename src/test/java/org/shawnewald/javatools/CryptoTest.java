@@ -5,7 +5,10 @@
  */
 package org.shawnewald.javatools;
 
+import static java.lang.System.out;
 import junit.framework.TestCase;
+import static org.shawnewald.javatools.Crypto.getDigest;
+import static org.shawnewald.javatools.Crypto.getSignature;
 
 /**
  *
@@ -31,13 +34,13 @@ public class CryptoTest extends TestCase {
      * Test of getDigest method, of class Crypto.
      */
     public void testGetDigest () {
-        System.out.println("getDigest");
+        out.println("getDigest");
         String str = "test";
         String digest = "SHA1";
         String encoding = "UTF-8";
         int radix = 16;
         String expResult = "a94a8fe5ccb19ba61c4c0873d391e987982fbbd3";
-        String result = Crypto.getDigest(str, digest, encoding, radix);
+        String result = getDigest(str, digest, encoding, radix);
         assertEquals(expResult, result);
     }
 
@@ -45,13 +48,13 @@ public class CryptoTest extends TestCase {
      * Test of getSignature method, of class Crypto.
      */
     public void testGetSignature () {
-        System.out.println("getSignature");
+        out.println("getSignature");
         String str = "test";
         String key = "mykey";
         String algorithm = "HmacSha1";
         boolean asBase64 = false;
         String expResult = "2db01def20dadf857b3728c4a9268b5df00dcb8a";
-        String result = Crypto.getSignature(str, key, algorithm, asBase64);
+        String result = getSignature(str, key, algorithm, asBase64);
         assertEquals(expResult, result);
     }
 }

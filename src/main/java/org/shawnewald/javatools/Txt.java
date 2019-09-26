@@ -1,8 +1,8 @@
 package org.shawnewald.javatools;
 
 import java.io.*;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
+import static java.net.URLDecoder.decode;
+import static java.net.URLEncoder.encode;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -62,7 +62,8 @@ public final class Txt {
     }
     /**
      * Escape single and double quotes in a string with backslashes.
-     * @param string  <code>String</code>
+     * @param s  <code>String</code>
+     * @param doubleQuoteOnly <code>boolean</code>
      * @return changedString  <code>String</code>
      */
     public static String escapeQuote (final String s, final boolean doubleQuoteOnly) {
@@ -104,7 +105,7 @@ public final class Txt {
      */
     public static String urlDecode (final String thisString) {
         try {
-            return URLDecoder.decode(thisString, textEncoding);
+            return decode(thisString, textEncoding);
         }
         catch (final UnsupportedEncodingException e) {
             throw new RuntimeException(e);
@@ -119,7 +120,7 @@ public final class Txt {
      */
     public static String urlEncode (final String thisString) {
         try {
-            return URLEncoder.encode(thisString, textEncoding);
+            return encode(thisString, textEncoding);
         }
         catch (final UnsupportedEncodingException e) {
             throw new RuntimeException(e);
@@ -133,9 +134,9 @@ public final class Txt {
     public static String getFileAsString (final String file) {
         final String out;
         try {
-            final FileInputStream fis = new FileInputStream(file);
-            out = streamToString(fis,true);
-            fis.close();
+            try (FileInputStream fis = new FileInputStream(file)) {
+                out = streamToString(fis,true);
+            }
         }
         catch (final IOException e) {
             throw new RuntimeException(e);
@@ -145,6 +146,7 @@ public final class Txt {
     /**
      * Converts the contents of an <code>InputStream</code> to a <code>String</code>
      * @param is <code>InputStream</code>
+     * @param addNewlines <code>boolean</code>
      * @return <code>String</code>
      * @throws IOException
      */
@@ -261,6 +263,8 @@ public final class Txt {
      * if element order is important.
      * Join all elements of a <code>Map</code> into a <code>String</code>.
      * @param map
+     * @param glue <code>String</code>
+     * @param seperator <code>String</code>
      * @return <code>String</code>
      */
     public static String join (Map<?, ?> map, final String glue, final String seperator) {

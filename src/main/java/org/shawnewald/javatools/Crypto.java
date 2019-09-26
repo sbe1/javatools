@@ -1,15 +1,17 @@
 package org.shawnewald.javatools;
 
 import java.io.UnsupportedEncodingException;
+import static java.lang.Character.MAX_RADIX;
+import static java.lang.Character.MIN_RADIX;
 import java.math.BigInteger;
 import java.security.GeneralSecurityException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.UUID;
+import static java.util.UUID.randomUUID;
 import javax.crypto.Mac;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
-import org.apache.commons.codec.binary.Base64;
+import static org.apache.commons.codec.binary.Base64.encodeBase64String;
 
 /**
  * Crypto and Security Tools
@@ -54,8 +56,8 @@ public final class Crypto {
                 digestedString = new BigInteger(1, digestedBytes).toString();
             }
             else {
-                if (radix == 0 || (radix < Character.MIN_RADIX
-                        || radix > Character.MAX_RADIX)) {
+                if (radix == 0 || (radix < MIN_RADIX
+                        || radix > MAX_RADIX)) {
                     thisRadix = defaultRadix;
                 }
                 else {
@@ -65,8 +67,7 @@ public final class Crypto {
                 new BigInteger(1, digestedBytes).toString(thisRadix);
             }
         }
-        catch (final NoSuchAlgorithmException e) { throw new RuntimeException(e); }
-        catch (final UnsupportedEncodingException e) { throw new RuntimeException(e); }
+        catch (final NoSuchAlgorithmException | UnsupportedEncodingException e) { throw new RuntimeException(e); }
         return digestedString;
     }
     /**
@@ -87,14 +88,13 @@ public final class Crypto {
             final Mac mac = Mac.getInstance(algorithm);
             mac.init(secretKey);
             if (asBase64) {
-                sig = Base64.encodeBase64String(mac.doFinal(strBytes));
+                sig = encodeBase64String(mac.doFinal(strBytes));
             }
             else {
                 sig = new BigInteger(1, mac.doFinal(strBytes)).toString(16);
             }
         }
-        catch (final UnsupportedEncodingException e) { throw new RuntimeException(e); }
-        catch (final GeneralSecurityException e) { throw new RuntimeException(e); }
+        catch (final UnsupportedEncodingException | GeneralSecurityException e) { throw new RuntimeException(e); }
         return sig;
     }
     /**
@@ -102,6 +102,6 @@ public final class Crypto {
      * @return <code>String</code>
      */
     public static String getUniqueID () {
-        return UUID.randomUUID().toString();
+        return randomUUID().toString();
     }
 }

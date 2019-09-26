@@ -35,7 +35,7 @@ public final class SContext {
      * @return <code>Map</code>, parameter values.
      */
     public static Map<String, String> getInitParameterMap (final ServletContext context) {
-        final Map<String, String> map = new HashMap<String, String>();
+        final Map<String, String> map = new HashMap<>();
         final Enumeration names = context.getInitParameterNames();
         while (names.hasMoreElements()) {
             final String name = (String)names.nextElement();
@@ -49,7 +49,7 @@ public final class SContext {
      * @return <code>Map</code>
      */
     public static Map<String, Object> getAtrributeMap (final ServletContext context) {
-        final Map<String, Object> map = new HashMap<String, Object>();
+        final Map<String, Object> map = new HashMap<>();
         final Enumeration names = context.getAttributeNames();
         while (names.hasMoreElements()) {
             final String name = (String)names.nextElement();

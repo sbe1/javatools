@@ -39,7 +39,7 @@ import org.apache.commons.dbcp.BasicDataSource;
 public class DataSource {
     private static String connectionString;
     private static DataSource datasource;
-    private BasicDataSource ds;
+    private final BasicDataSource ds;
     
     /**
      * 

@@ -1,7 +1,9 @@
 package org.shawnewald.javatools;
 
 import java.sql.*;
+import static java.sql.Types.NULL;
 import java.util.*;
+import static java.util.Arrays.asList;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -293,7 +295,7 @@ public final class DB {
         final Connection con = setConnection();
         Statement stmt = null;
         ResultSet rs = null;
-        final Map<String,Object> result = new HashMap<String,Object>();
+        final Map<String,Object> result = new HashMap<>();
         try {
             stmt = con.createStatement();
             rs = stmt.executeQuery(query);
@@ -330,7 +332,7 @@ public final class DB {
         final Connection con = setConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        final Map<String,Object> result = new HashMap<String,Object>();
+        final Map<String,Object> result = new HashMap<>();
         try {
             stmt = con.prepareStatement(query);
             setStatementValues(stmt, values);
@@ -368,7 +370,7 @@ public final class DB {
         final Connection con = setConnection();
         Statement stmt = null;
         ResultSet rs = null;
-        final List<Object> list = new ArrayList<Object>();
+        final List<Object> list = new ArrayList<>();
         try {
             stmt = con.createStatement();
             rs = stmt.executeQuery(query);
@@ -397,7 +399,7 @@ public final class DB {
      */
     public Set<Object> getColumnSet (final String query,
                                        final String column) {
-        final Set<Object> set = new HashSet<Object>();
+        final Set<Object> set = new HashSet<>();
         set.addAll(getColumnList(query,column));
         return set;
     }
@@ -413,7 +415,7 @@ public final class DB {
         final Connection con = setConnection();
         Statement stmt = null;
         ResultSet rs = null;
-        final Set<String> set = new HashSet<String>();
+        final Set<String> set = new HashSet<>();
         try {
             stmt = con.createStatement();
             rs = stmt.executeQuery(query);
@@ -449,14 +451,14 @@ public final class DB {
      */
     public List<String> getEnumValues (final String table,
                                        final String column) {
-        final List<String> values = new ArrayList<String>();
-        final List<Object> items = new ArrayList<Object>(2);
+        final List<String> values = new ArrayList<>();
+        final List<Object> items = new ArrayList<>(2);
         items.add(table);
         items.add(column);
         final String r = (String)getPreparedOne(enumQuery, items);
         if (r != null) {
             final String[] v = r.split(litComma);
-            values.addAll(Arrays.asList(v));
+            values.addAll(asList(v));
         }
         return values;
     }
@@ -633,12 +635,12 @@ public final class DB {
      * @return rows  <code>List</code>
      */
     private List<Map<String,Object>> convertResultSet (final ResultSet rs) {
-        final List<Map<String,Object>> rows = new ArrayList<Map<String,Object>>();
+        final List<Map<String,Object>> rows = new ArrayList<>();
         try {
             final ResultSetMetaData meta = rs.getMetaData();
             final int numberOfColumns = meta.getColumnCount();
             while (rs.next()) {
-                final Map<String, Object> map = new HashMap<String, Object>();
+                final Map<String, Object> map = new HashMap<>();
                 for (int c = 1; c <= numberOfColumns; ++c) {
                     final String name = meta.getColumnName(c);
                     final Object value = rs.getObject(c);
@@ -667,7 +669,7 @@ public final class DB {
             for (final Object item : values) {
                 String type = null;
                 if (item == null) {
-                    stmt.setNull(i, java.sql.Types.NULL);
+                    stmt.setNull(i, NULL);
                 }
                 else {
                     type = item.getClass().getName();
@@ -725,7 +727,7 @@ public final class DB {
         try {
             if (type.endsWith(litTypeString)) {
                 if (litStringNull.equalsIgnoreCase((String)item)) {
-                    stmt.setNull(i, java.sql.Types.NULL);
+                    stmt.setNull(i, NULL);
                 }
                 else { stmt.setString(i, (String) item); }
             }

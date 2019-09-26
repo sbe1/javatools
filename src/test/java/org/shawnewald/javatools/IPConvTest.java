@@ -5,7 +5,13 @@
  */
 package org.shawnewald.javatools;
 
+import static java.lang.System.out;
 import junit.framework.TestCase;
+import static org.shawnewald.javatools.IPConv.intToIp;
+import static org.shawnewald.javatools.IPConv.invertIP;
+import static org.shawnewald.javatools.IPConv.ipToArray;
+import static org.shawnewald.javatools.IPConv.ipToIntArray;
+import static org.shawnewald.javatools.IPConv.ipToLong;
 
 /**
  *
@@ -31,10 +37,10 @@ public class IPConvTest extends TestCase {
      * Test of ipToLong method, of class IPConv.
      */
     public void testIpToLong () {
-        System.out.println("ipToLong");
+        out.println("ipToLong");
         String addr = "127.0.0.1";
         long expResult = 2130706433L;
-        long result = IPConv.ipToLong(addr);
+        long result = ipToLong(addr);
         assertEquals(expResult, result);
     }
 
@@ -42,10 +48,10 @@ public class IPConvTest extends TestCase {
      * Test of intToIp method, of class IPConv.
      */
     public void testIntToIp () {
-        System.out.println("intToIp");
+        out.println("intToIp");
         int ip = 2130706433;
         String expResult = "127.0.0.1";
-        String result = IPConv.intToIp(ip);
+        String result = intToIp(ip);
         assertEquals(expResult, result);
     }
 
@@ -53,10 +59,10 @@ public class IPConvTest extends TestCase {
      * Test of invertIP method, of class IPConv.
      */
     public void testInvertIP () {
-        System.out.println("invertIP");
+        out.println("invertIP");
         String originalIPAddress = "127.0.0.1";
         String expResult = "1.0.0.127";
-        String result = IPConv.invertIP(originalIPAddress);
+        String result = invertIP(originalIPAddress);
         assertEquals(expResult, result);
     }
 
@@ -64,10 +70,10 @@ public class IPConvTest extends TestCase {
      * Test of ipToArray method, of class IPConv.
      */
     public void testIpToArray () {
-        System.out.println("ipToArray");
+        out.println("ipToArray");
         String ip = "127.0.0.1";
         String[] expResult = new String[]{"127","0","0","1"};
-        String[] result = IPConv.ipToArray(ip);
+        String[] result = ipToArray(ip);
         assertEquals((expResult[0]+expResult[1]+expResult[2]+expResult[3]), (result[0]+result[1]+result[2]+result[3]));
     }
 
@@ -75,11 +81,11 @@ public class IPConvTest extends TestCase {
      * Test of ipToIntArray method, of class IPConv.
      */
     public void testIpToIntArray () {
-        System.out.println("ipToIntArray");
+        out.println("ipToIntArray");
         String ip = "127.0.0.1";
         int[] expResult = new int[]{127,0,0,1};
-        int[] result = IPConv.ipToIntArray(ip);
-        System.out.println("TEST=====> "+(""+expResult[0]+expResult[1]+expResult[2]+expResult[3])+" "+(""+result[0]+result[1]+result[2]+result[3]));
+        int[] result = ipToIntArray(ip);
+        out.println("TEST=====> "+(""+expResult[0]+expResult[1]+expResult[2]+expResult[3])+" "+(""+result[0]+result[1]+result[2]+result[3]));
         assertEquals((""+expResult[0]+expResult[1]+expResult[2]+expResult[3]), (""+result[0]+result[1]+result[2]+result[3]));
     }
     

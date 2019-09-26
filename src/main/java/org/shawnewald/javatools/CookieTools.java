@@ -3,6 +3,7 @@ package org.shawnewald.javatools;
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.http.Cookie;
+import static org.shawnewald.javatools.Txt.urlDecode;
 
 /**
  * Cookie Tools - HTTP Cookie manipulation methods.
@@ -139,7 +140,7 @@ public final class CookieTools {
             final String cookieName) {
         final Cookie cookie = cookieFindByName(cookies, cookieName);
         return (!cookieIsNullOrEmpty(cookie))
-                ? Txt.urlDecode(cookie.getValue())
+                ? urlDecode(cookie.getValue())
                 : empty;
     }
     /**
@@ -159,7 +160,7 @@ public final class CookieTools {
      * @return map <code>Map</code>
      */
     public static Map<String, String> cookieMap (final Cookie[] cookies) {
-        final Map<String, String> map = new HashMap<String, String>(cookies.length);
+        final Map<String, String> map = new HashMap<>(cookies.length);
         for (final Cookie c : cookies) {
             map.put(c.getName(), c.getValue());
         }

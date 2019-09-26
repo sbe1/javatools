@@ -1,5 +1,8 @@
 package org.shawnewald.javatools;
 
+import static java.lang.Integer.parseInt;
+import static java.lang.Math.pow;
+
 /**
  * IP4 Address Conversion Tools
  * @author  Shawn Ewald <shawn.ewald@gmail.com>
@@ -33,14 +36,14 @@ public final class IPConv {
         final int len = addrArray.length;
         for (int i=0;i<len;i++) {
             final int power = 3-i;
-            num += (Integer.parseInt(addrArray[i])%256 * Math.pow(256,power));
+            num += (parseInt(addrArray[i])%256 * pow(256,power));
         }
         return num;
     }
 
     /**
      * Convert an IP4 address to a string from an int representation.
-     * @param i <code>int</code>, representation of an IP4 address.
+     * @param ip <code>int</code>, representation of an IP4 address.
      * @return <code>String</code> converted representation of an IP4 address.
      */
     public static String intToIp(final int ip) {
@@ -83,7 +86,7 @@ public final class IPConv {
         final String[] strArray = ipToArray(ip);
         final int[] intArray = new int[4];
         for (int i=0;i<4;i++) {
-            intArray[i] = Integer.parseInt(strArray[i]);
+            intArray[i] = parseInt(strArray[i]);
         }
         return intArray;
     }

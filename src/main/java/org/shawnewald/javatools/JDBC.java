@@ -1,9 +1,14 @@
 package org.shawnewald.javatools;
 
-import com.mysql.jdbc.MysqlErrorNumbers;
+import static com.mysql.jdbc.MysqlErrorNumbers.ER_LOCK_DEADLOCK;
+import static java.lang.Thread.sleep;
 import java.sql.*;
+import static java.sql.Types.NULL;
 import java.util.*;
+import static java.util.Arrays.asList;
 import org.apache.log4j.Logger;
+import static org.apache.log4j.Logger.getLogger;
+import static org.shawnewald.javatools.DataSource.getInstance;
 
 /**
  * JDBC Database class
@@ -45,16 +50,16 @@ public final class JDBC {
     private DataSource ds;
     private int resultLimit = 30;
     private int batchSize = 1000;
-    private static final Logger LOG = Logger.getLogger(JDBC.class);
+    private static final Logger LOG = getLogger(JDBC.class);
 
     /**
      * Class constructor, initializes connection to JNDI datasource.
      *
-     * @param datasourceContext a <code>String</code> containing the JNDI
+     * @param connectionString a <code>String</code> containing the JNDI
      * datasource url.
      */
     public JDBC(final String connectionString) {
-        try { ds = DataSource.getInstance(connectionString); }
+        try { ds = getInstance(connectionString); }
         catch (final Exception e) { throw new RuntimeException(e); }
     }
 
@@ -62,13 +67,13 @@ public final class JDBC {
      * Class constructor, initializes connection to JNDI datasource and sets the
      * value of the default resultLimit to a user supplied value.
      *
-     * @param datasourceContext a <code>String</code> containing the JNDI
+     * @param connectionString a <code>String</code> containing the JNDI
      * datasource.
      * @param limit an <code>int</code> containing the result limit.
      */
     public JDBC(final String connectionString, final int limit) {
         resultLimit = limit;
-        try { ds = DataSource.getInstance(connectionString); }
+        try { ds = getInstance(connectionString); }
         catch (final Exception e) { throw new RuntimeException(e); }
     }
 
@@ -77,15 +82,16 @@ public final class JDBC {
      * value of the default resultLimit to a user supplied value and sets the
      * batch query limit to a user supplied value.
      *
-     * @param datasourceContext a <code>String</code> containing the JNDI
+     * @param connectionString a <code>String</code> containing the JNDI
      * datasource.
      * @param limit an <code>int</code> containing the result limit.
+     * @param batchLimit an <code>int</code>
      */
     public JDBC(final String connectionString, final int limit,
             final int batchLimit) {
         resultLimit = limit;
         batchSize = batchLimit;
-        try { ds = DataSource.getInstance(connectionString); }
+        try { ds = getInstance(connectionString); }
         catch (final Exception e) { throw new RuntimeException(e); }
     }
 
@@ -310,7 +316,7 @@ public final class JDBC {
     public Map<String, Object> getRow(final String query) {
         Statement stmt = null;
         ResultSet rs = null;
-        final Map<String, Object> result = new HashMap<String, Object>();
+        final Map<String, Object> result = new HashMap<>();
         Connection con = null;
         try {
             con = ds.getConnection();
@@ -350,7 +356,7 @@ public final class JDBC {
         //final Connection con = setConnection(this.connectionString);
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        final Map<String, Object> result = new HashMap<String, Object>();
+        final Map<String, Object> result = new HashMap<>();
         Connection con = null;
         try {
             con = ds.getConnection();
@@ -393,7 +399,7 @@ public final class JDBC {
         //final Connection con = setConnection(this.connectionString);
         Statement stmt = null;
         ResultSet rs = null;
-        final List<Object> list = new ArrayList<Object>();
+        final List<Object> list = new ArrayList<>();
         Connection con = null;
         try {
             con = ds.getConnection();
@@ -427,7 +433,7 @@ public final class JDBC {
      */
     public Set<Object> getColumnSet(final String query,
             final String column) {
-        final Set<Object> set = new HashSet<Object>();
+        final Set<Object> set = new HashSet<>();
         set.addAll(getColumnList(query, column));
         return set;
     }
@@ -445,7 +451,7 @@ public final class JDBC {
         //final Connection con = setConnection(this.connectionString);
         Statement stmt = null;
         ResultSet rs = null;
-        final Set<String> set = new HashSet<String>();
+        final Set<String> set = new HashSet<>();
         Connection con = null;
         try {
             con = ds.getConnection();
@@ -487,14 +493,14 @@ public final class JDBC {
      */
     public List<String> getEnumValues(final String table,
             final String column) {
-        final List<String> values = new ArrayList<String>();
-        final List<Object> items = new ArrayList<Object>(2);
+        final List<String> values = new ArrayList<>();
+        final List<Object> items = new ArrayList<>(2);
         items.add(table);
         items.add(column);
         final String r = (String) getPreparedOne(enumQuery, items);
         if (r != null) {
             final String[] v = r.split(litComma);
-            values.addAll(Arrays.asList(v));
+            values.addAll(asList(v));
         }
         return values;
     }
@@ -541,9 +547,9 @@ public final class JDBC {
             setStatementValues(stmt, values);
             try { stmt.executeUpdate(); }
             catch (final SQLException e) {
-                if (e.getErrorCode() == MysqlErrorNumbers.ER_LOCK_DEADLOCK) {
+                if (e.getErrorCode() == ER_LOCK_DEADLOCK) {
                     closePreparedStatement(stmt);
-                    try { Thread.sleep(1000); }
+                    try { sleep(1000); }
                     catch (final Exception ex) {
                         LOG.error(ex.getMessage(),ex);
                     }
@@ -716,12 +722,12 @@ public final class JDBC {
      * @return rows  <code>List</code>
      */
     private List<Map<String, Object>> convertResultSet(final ResultSet rs) {
-        final List<Map<String, Object>> rows = new ArrayList<Map<String, Object>>();
+        final List<Map<String, Object>> rows = new ArrayList<>();
         try {
             final ResultSetMetaData meta = rs.getMetaData();
             final int numberOfColumns = meta.getColumnCount();
             while (rs.next()) {
-                final Map<String, Object> map = new HashMap<String, Object>();
+                final Map<String, Object> map = new HashMap<>();
                 for (int c = 1; c <= numberOfColumns; ++c) {
                     final String name = meta.getColumnName(c);
                     final Object value = rs.getObject(c);
@@ -743,7 +749,7 @@ public final class JDBC {
      *
      * @param stmt  <code>java.sql.PreparedStatement</code>
      * @param values  <code>java.util.List</code>
-     * @return stmt  <code>java.util.PreparedStatement</code>
+     * @return <code>java.util.PreparedStatement</code>
      */
     private void setStatementValues(final PreparedStatement stmt,
             final List<Object> values) {
@@ -752,7 +758,7 @@ public final class JDBC {
             for (final Object item : values) {
                 String type = null;
                 if (item == null) {
-                    stmt.setNull(i, java.sql.Types.NULL);
+                    stmt.setNull(i, NULL);
                 }
                 else {
                     type = item.getClass().getName();
@@ -813,7 +819,7 @@ public final class JDBC {
         try {
             if (type.endsWith(litTypeString)) {
                 if (litStringNull.equalsIgnoreCase((String) item)) {
-                    stmt.setNull(i, java.sql.Types.NULL);
+                    stmt.setNull(i, NULL);
                 }
                 else {
                     stmt.setString(i, (String) item);

@@ -49,9 +49,9 @@ public final class Prop {
         final Properties props = new Properties();
         try {
             if (file.exists()) {
-                final FileInputStream fis = new FileInputStream(file);
-                props.load(fis);
-                fis.close();
+                try (FileInputStream fis = new FileInputStream(file)) {
+                    props.load(fis);
+                }
             }
         }
         catch (final IOException e) {
@@ -81,7 +81,7 @@ public final class Prop {
      * @return <code>Map</code>
      */
     public static Map<String, String> getPropMap (final Properties p) {
-        final Map<String, String> map = new HashMap<String, String>();
+        final Map<String, String> map = new HashMap<>();
         final Enumeration en = p.propertyNames();
         while (en.hasMoreElements()) {
             final String key = (String)en.nextElement();

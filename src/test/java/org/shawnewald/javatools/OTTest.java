@@ -5,10 +5,26 @@
  */
 package org.shawnewald.javatools;
 
+import static java.lang.System.out;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import junit.framework.TestCase;
+import static org.shawnewald.javatools.OT.integerIsNullOrEmpty;
+import static org.shawnewald.javatools.OT.integerIsNullOrLTETZero;
+import static org.shawnewald.javatools.OT.integerIsNullOrZero;
+import static org.shawnewald.javatools.OT.listIsNullOrEmpty;
+import static org.shawnewald.javatools.OT.longIsNullOrEmpty;
+import static org.shawnewald.javatools.OT.longIsNullOrLTETZero;
+import static org.shawnewald.javatools.OT.longIsNullOrZero;
+import static org.shawnewald.javatools.OT.mapIsNullOrEmpty;
+import static org.shawnewald.javatools.OT.numberIsNullOrEmpty;
+import static org.shawnewald.javatools.OT.numberIsNullOrLTETZero;
+import static org.shawnewald.javatools.OT.numberIsNullOrZero;
+import static org.shawnewald.javatools.OT.objectIsNullOrEmpty;
+import static org.shawnewald.javatools.OT.setIsNullOrEmpty;
+import static org.shawnewald.javatools.OT.stringIsNullOrEmpty;
+import static org.shawnewald.javatools.OT.stringIsNullOrEmpty;
 
 /**
  *
@@ -34,10 +50,10 @@ public class OTTest extends TestCase {
      * Test of objectIsNullOrEmpty method, of class OT.
      */
     public void testObjectIsNullOrEmpty () {
-        System.out.println("objectIsNullOrEmpty");
+        out.println("objectIsNullOrEmpty");
         Object[] input = new Object[]{"Foo"};
         boolean expResult = false;
-        boolean result = OT.objectIsNullOrEmpty(input);
+        boolean result = objectIsNullOrEmpty(input);
         assertEquals(expResult, result);
     }
 
@@ -45,10 +61,10 @@ public class OTTest extends TestCase {
      * Test of stringIsNullOrEmpty method, of class OT.
      */
     public void testStringIsNullOrEmpty_String () {
-        System.out.println("stringIsNullOrEmpty");
+        out.println("stringIsNullOrEmpty");
         String input = "Foo";
         boolean expResult = false;
-        boolean result = OT.stringIsNullOrEmpty(input);
+        boolean result = stringIsNullOrEmpty(input);
         assertEquals(expResult, result);
     }
 
@@ -56,10 +72,10 @@ public class OTTest extends TestCase {
      * Test of stringIsNullOrEmpty method, of class OT.
      */
     public void testStringIsNullOrEmpty_StringArr () {
-        System.out.println("stringIsNullOrEmpty");
+        out.println("stringIsNullOrEmpty");
         String[] input = new String[]{"Foo"};
         boolean expResult = false;
-        boolean result = OT.stringIsNullOrEmpty(input);
+        boolean result = stringIsNullOrEmpty(input);
         assertEquals(expResult, result);
     }
 
@@ -67,10 +83,10 @@ public class OTTest extends TestCase {
      * Test of mapIsNullOrEmpty method, of class OT.
      */
     public void testMapIsNullOrEmpty () {
-        System.out.println("mapIsNullOrEmpty");
+        out.println("mapIsNullOrEmpty");
         Map input = null;
         boolean expResult = true;
-        boolean result = OT.mapIsNullOrEmpty(input);
+        boolean result = mapIsNullOrEmpty(input);
         assertEquals(expResult, result);
     }
 
@@ -78,10 +94,10 @@ public class OTTest extends TestCase {
      * Test of listIsNullOrEmpty method, of class OT.
      */
     public void testListIsNullOrEmpty () {
-        System.out.println("listIsNullOrEmpty");
+        out.println("listIsNullOrEmpty");
         List input = null;
         boolean expResult = true;
-        boolean result = OT.listIsNullOrEmpty(input);
+        boolean result = listIsNullOrEmpty(input);
         assertEquals(expResult, result);
     }
 
@@ -89,10 +105,10 @@ public class OTTest extends TestCase {
      * Test of setIsNullOrEmpty method, of class OT.
      */
     public void testSetIsNullOrEmpty () {
-        System.out.println("setIsNullOrEmpty");
+        out.println("setIsNullOrEmpty");
         Set input = null;
         boolean expResult = true;
-        boolean result = OT.setIsNullOrEmpty(input);
+        boolean result = setIsNullOrEmpty(input);
         assertEquals(expResult, result);
     }
 
@@ -100,10 +116,10 @@ public class OTTest extends TestCase {
      * Test of integerIsNullOrZero method, of class OT.
      */
     public void testIntegerIsNullOrZero () {
-        System.out.println("integerIsNullOrZero");
+        out.println("integerIsNullOrZero");
         Integer input = 0;
         boolean expResult = true;
-        boolean result = OT.integerIsNullOrZero(input);
+        boolean result = integerIsNullOrZero(input);
         assertEquals(expResult, result);
     }
 
@@ -111,10 +127,10 @@ public class OTTest extends TestCase {
      * Test of integerIsNullOrLTETZero method, of class OT.
      */
     public void testIntegerIsNullOrLTETZero () {
-        System.out.println("integerIsNullOrLTETZero");
+        out.println("integerIsNullOrLTETZero");
         Integer input = -1;
         boolean expResult = true;
-        boolean result = OT.integerIsNullOrLTETZero(input);
+        boolean result = integerIsNullOrLTETZero(input);
         assertEquals(expResult, result);
     }
 
@@ -122,10 +138,10 @@ public class OTTest extends TestCase {
      * Test of integerIsNullOrEmpty method, of class OT.
      */
     public void testIntegerIsNullOrEmpty () {
-        System.out.println("integerIsNullOrEmpty");
+        out.println("integerIsNullOrEmpty");
         Integer[] input = new Integer[]{1};
         boolean expResult = false;
-        boolean result = OT.integerIsNullOrEmpty(input);
+        boolean result = integerIsNullOrEmpty(input);
         assertEquals(expResult, result);
     }
 
@@ -133,10 +149,10 @@ public class OTTest extends TestCase {
      * Test of longIsNullOrZero method, of class OT.
      */
     public void testLongIsNullOrZero () {
-        System.out.println("longIsNullOrZero");
+        out.println("longIsNullOrZero");
         Long input = 1L;
         boolean expResult = false;
-        boolean result = OT.longIsNullOrZero(input);
+        boolean result = longIsNullOrZero(input);
         assertEquals(expResult, result);
     }
 
@@ -144,10 +160,10 @@ public class OTTest extends TestCase {
      * Test of longIsNullOrLTETZero method, of class OT.
      */
     public void testLongIsNullOrLTETZero () {
-        System.out.println("longIsNullOrLTETZero");
+        out.println("longIsNullOrLTETZero");
         Long input = null;
         boolean expResult = true;
-        boolean result = OT.longIsNullOrLTETZero(input);
+        boolean result = longIsNullOrLTETZero(input);
         assertEquals(expResult, result);
     }
 
@@ -155,10 +171,10 @@ public class OTTest extends TestCase {
      * Test of longIsNullOrEmpty method, of class OT.
      */
     public void testLongIsNullOrEmpty () {
-        System.out.println("longIsNullOrEmpty");
+        out.println("longIsNullOrEmpty");
         Long[] input = null;
         boolean expResult = true;
-        boolean result = OT.longIsNullOrEmpty(input);
+        boolean result = longIsNullOrEmpty(input);
         assertEquals(expResult, result);
     }
 
@@ -166,10 +182,10 @@ public class OTTest extends TestCase {
      * Test of numberIsNullOrZero method, of class OT.
      */
     public void testNumberIsNullOrZero () {
-        System.out.println("numberIsNullOrZero");
+        out.println("numberIsNullOrZero");
         Number input = null;
         boolean expResult = true;
-        boolean result = OT.numberIsNullOrZero(input);
+        boolean result = numberIsNullOrZero(input);
         assertEquals(expResult, result);
     }
 
@@ -177,10 +193,10 @@ public class OTTest extends TestCase {
      * Test of numberIsNullOrLTETZero method, of class OT.
      */
     public void testNumberIsNullOrLTETZero () {
-        System.out.println("numberIsNullOrLTETZero");
+        out.println("numberIsNullOrLTETZero");
         Number input = null;
         boolean expResult = true;
-        boolean result = OT.numberIsNullOrLTETZero(input);
+        boolean result = numberIsNullOrLTETZero(input);
         assertEquals(expResult, result);
     }
 
@@ -188,10 +204,10 @@ public class OTTest extends TestCase {
      * Test of numberIsNullOrEmpty method, of class OT.
      */
     public void testNumberIsNullOrEmpty () {
-        System.out.println("numberIsNullOrEmpty");
+        out.println("numberIsNullOrEmpty");
         Number[] input = null;
         boolean expResult = true;
-        boolean result = OT.numberIsNullOrEmpty(input);
+        boolean result = numberIsNullOrEmpty(input);
         assertEquals(expResult, result);
     }
     
