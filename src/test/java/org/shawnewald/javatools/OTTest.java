@@ -10,21 +10,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import junit.framework.TestCase;
-import static org.shawnewald.javatools.OT.integerIsNullOrEmpty;
-import static org.shawnewald.javatools.OT.integerIsNullOrLTETZero;
-import static org.shawnewald.javatools.OT.integerIsNullOrZero;
-import static org.shawnewald.javatools.OT.listIsNullOrEmpty;
-import static org.shawnewald.javatools.OT.longIsNullOrEmpty;
-import static org.shawnewald.javatools.OT.longIsNullOrLTETZero;
-import static org.shawnewald.javatools.OT.longIsNullOrZero;
-import static org.shawnewald.javatools.OT.mapIsNullOrEmpty;
-import static org.shawnewald.javatools.OT.numberIsNullOrEmpty;
-import static org.shawnewald.javatools.OT.numberIsNullOrLTETZero;
-import static org.shawnewald.javatools.OT.numberIsNullOrZero;
-import static org.shawnewald.javatools.OT.objectIsNullOrEmpty;
-import static org.shawnewald.javatools.OT.setIsNullOrEmpty;
-import static org.shawnewald.javatools.OT.stringIsNullOrEmpty;
-import static org.shawnewald.javatools.OT.stringIsNullOrEmpty;
+import static org.shawnewald.javatools.OT.nullOrEmpty;
+import static org.shawnewald.javatools.OT.nullOrLTETZero;
+import static org.shawnewald.javatools.OT.nullOrZero;
+import static org.shawnewald.javatools.OT.nullOrLTETZero;
 
 /**
  *
@@ -53,7 +42,7 @@ public class OTTest extends TestCase {
         out.println("objectIsNullOrEmpty");
         Object[] input = new Object[]{"Foo"};
         boolean expResult = false;
-        boolean result = objectIsNullOrEmpty(input);
+        boolean result = nullOrEmpty(input);
         assertEquals(expResult, result);
     }
 
@@ -64,7 +53,7 @@ public class OTTest extends TestCase {
         out.println("stringIsNullOrEmpty");
         String input = "Foo";
         boolean expResult = false;
-        boolean result = stringIsNullOrEmpty(input);
+        boolean result = nullOrEmpty(input);
         assertEquals(expResult, result);
     }
 
@@ -75,7 +64,7 @@ public class OTTest extends TestCase {
         out.println("stringIsNullOrEmpty");
         String[] input = new String[]{"Foo"};
         boolean expResult = false;
-        boolean result = stringIsNullOrEmpty(input);
+        boolean result = nullOrEmpty(input);
         assertEquals(expResult, result);
     }
 
@@ -86,7 +75,7 @@ public class OTTest extends TestCase {
         out.println("mapIsNullOrEmpty");
         Map input = null;
         boolean expResult = true;
-        boolean result = mapIsNullOrEmpty(input);
+        boolean result = nullOrEmpty(input);
         assertEquals(expResult, result);
     }
 
@@ -97,7 +86,7 @@ public class OTTest extends TestCase {
         out.println("listIsNullOrEmpty");
         List input = null;
         boolean expResult = true;
-        boolean result = listIsNullOrEmpty(input);
+        boolean result = nullOrEmpty(input);
         assertEquals(expResult, result);
     }
 
@@ -108,7 +97,7 @@ public class OTTest extends TestCase {
         out.println("setIsNullOrEmpty");
         Set input = null;
         boolean expResult = true;
-        boolean result = setIsNullOrEmpty(input);
+        boolean result = nullOrEmpty(input);
         assertEquals(expResult, result);
     }
 
@@ -119,7 +108,7 @@ public class OTTest extends TestCase {
         out.println("integerIsNullOrZero");
         Integer input = 0;
         boolean expResult = true;
-        boolean result = integerIsNullOrZero(input);
+        boolean result = nullOrZero(input);
         assertEquals(expResult, result);
     }
 
@@ -130,7 +119,7 @@ public class OTTest extends TestCase {
         out.println("integerIsNullOrLTETZero");
         Integer input = -1;
         boolean expResult = true;
-        boolean result = integerIsNullOrLTETZero(input);
+        boolean result = nullOrLTETZero(input);
         assertEquals(expResult, result);
     }
 
@@ -141,7 +130,7 @@ public class OTTest extends TestCase {
         out.println("integerIsNullOrEmpty");
         Integer[] input = new Integer[]{1};
         boolean expResult = false;
-        boolean result = integerIsNullOrEmpty(input);
+        boolean result = nullOrEmpty(input);
         assertEquals(expResult, result);
     }
 
@@ -152,7 +141,7 @@ public class OTTest extends TestCase {
         out.println("longIsNullOrZero");
         Long input = 1L;
         boolean expResult = false;
-        boolean result = longIsNullOrZero(input);
+        boolean result = nullOrZero(input);
         assertEquals(expResult, result);
     }
 
@@ -163,7 +152,7 @@ public class OTTest extends TestCase {
         out.println("longIsNullOrLTETZero");
         Long input = null;
         boolean expResult = true;
-        boolean result = longIsNullOrLTETZero(input);
+        boolean result = nullOrLTETZero(input);
         assertEquals(expResult, result);
     }
 
@@ -174,7 +163,7 @@ public class OTTest extends TestCase {
         out.println("longIsNullOrEmpty");
         Long[] input = null;
         boolean expResult = true;
-        boolean result = longIsNullOrEmpty(input);
+        boolean result = nullOrEmpty(input);
         assertEquals(expResult, result);
     }
 
@@ -185,7 +174,7 @@ public class OTTest extends TestCase {
         out.println("numberIsNullOrZero");
         Number input = null;
         boolean expResult = true;
-        boolean result = numberIsNullOrZero(input);
+        boolean result = nullOrZero(input);
         assertEquals(expResult, result);
     }
 
@@ -196,7 +185,7 @@ public class OTTest extends TestCase {
         out.println("numberIsNullOrLTETZero");
         Number input = null;
         boolean expResult = true;
-        boolean result = numberIsNullOrLTETZero(input);
+        boolean result = nullOrLTETZero(input);
         assertEquals(expResult, result);
     }
 
@@ -207,7 +196,7 @@ public class OTTest extends TestCase {
         out.println("numberIsNullOrEmpty");
         Number[] input = null;
         boolean expResult = true;
-        boolean result = numberIsNullOrEmpty(input);
+        boolean result = nullOrEmpty(input);
         assertEquals(expResult, result);
     }
     

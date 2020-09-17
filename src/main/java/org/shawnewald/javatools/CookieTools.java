@@ -359,7 +359,7 @@ public final class CookieTools {
      * @return <code>boolean</code>
      */
     public static boolean cookieIsNullOrEmpty (final Cookie cookie) {
-        return (cookie == null || cookie.getValue().isEmpty());
+        return (null == cookie || cookie.getValue().isEmpty());
     }
     /**
      * Returns a <code>Cookie</code> named after <code>String</code> name from
