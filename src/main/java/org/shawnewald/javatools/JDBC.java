@@ -1,6 +1,6 @@
 package org.shawnewald.javatools;
 
-import static com.mysql.jdbc.MysqlErrorNumbers.ER_LOCK_DEADLOCK;
+import com.mysql.cj.exceptions.MysqlErrorNumbers;
 import static java.lang.Thread.sleep;
 import java.sql.*;
 import static java.sql.Types.NULL;
@@ -547,7 +547,7 @@ public final class JDBC {
             setStatementValues(stmt, values);
             try { stmt.executeUpdate(); }
             catch (final SQLException e) {
-                if (e.getErrorCode() == ER_LOCK_DEADLOCK) {
+                if (e.getErrorCode() == MysqlErrorNumbers.ER_LOCK_DEADLOCK) {
                     closePreparedStatement(stmt);
                     try { sleep(1000); }
                     catch (final Exception ex) {
