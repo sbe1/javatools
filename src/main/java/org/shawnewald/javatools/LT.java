@@ -29,7 +29,7 @@ public final class LT {
      * @param log <code>org.apache.log4j.Logger</code>
      * @param e <code>Throwable</code>
      */
-    public static void logError(final org.apache.log4j.Logger log, final Throwable e) {
+    public static void logError(final org.apache.logging.log4j.Logger log, final Throwable e) {
         log.error(e);
         log.error(getStackTrace(e), e);
     }

@@ -6,8 +6,8 @@ import java.sql.*;
 import static java.sql.Types.NULL;
 import java.util.*;
 import static java.util.Arrays.asList;
-import org.apache.log4j.Logger;
-import static org.apache.log4j.Logger.getLogger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import static org.shawnewald.javatools.DataSource.getInstance;
 
 /**
@@ -50,7 +50,7 @@ public final class JDBC {
     private DataSource ds;
     private int resultLimit = 30;
     private int batchSize = 1000;
-    private static final Logger LOG = getLogger(JDBC.class);
+    private static final Logger LOG = LogManager.getLogger(JDBC.class);
 
     /**
      * Class constructor, initializes connection to JNDI datasource.

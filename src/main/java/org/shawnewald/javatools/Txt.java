@@ -271,7 +271,7 @@ public final class Txt {
         final StringBuilder sb = new StringBuilder();
         Set<?> columns = map.keySet();
         boolean isFirstCol = true;
-        for (Object col : columns) {
+        for (final Object col : columns) {
             if (isFirstCol) {
                 sb.append(col).append(seperator).append(map.get(col));
                 isFirstCol = false;

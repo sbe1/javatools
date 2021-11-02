@@ -8,7 +8,8 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 /**
  * JDBC/JDNI Database class
@@ -50,7 +51,7 @@ public final class DB {
     private DataSource datasource;
     private int resultLimit = 30;
     private int batchSize = 1000;
-    private static final Logger LOG = Logger.getLogger(DB.class.getName());
+    private static final Logger LOG = LogManager.getLogger(DB.class.getName());
 
     /**
      * Class constructor, initializes connection to JNDI datasource.
