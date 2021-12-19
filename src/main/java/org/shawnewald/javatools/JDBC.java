@@ -6,8 +6,8 @@ import java.sql.*;
 import static java.sql.Types.NULL;
 import java.util.*;
 import static java.util.Arrays.asList;
-import org.apache.log4j.Logger;
-import org.apache.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import static org.shawnewald.javatools.DataSource.getInstance;
 
 /**
